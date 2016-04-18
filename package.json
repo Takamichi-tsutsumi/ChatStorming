@@ -20,8 +20,10 @@
   "dependencies": {
     "axios": "^0.9.1",
     "babel-preset-stage-1": "^6.1.18",
+    "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "material-ui": "^0.14.4",
+    "pug": "^2.0.0-alpha5",
     "react": "^0.14.3",
     "react-addons": "^0.9.1-deprecated",
     "react-addons-create-fragment": "^0.14.7",
