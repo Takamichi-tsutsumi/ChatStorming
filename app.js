@@ -1,16 +1,16 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 app.set('view engine', 'jade');
 
 app.set('views', __dirname);
 
-app.get('/', function (req, res) {
-    res.render('index');
+app.get('/', (req, res) => {
+  res.render('index');
 });
 
-var server = app.listen(3001, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log('authors listening at http://%s:%s', host, port);
+const server = app.listen(3001, () => {
+  const host = server.address().address;
+  const port = server.address().port;
+  console.log('authors listening at http://%s:%s', host, port);
 });
