@@ -3,7 +3,7 @@ const app = express();
 
 app.set('view engine', 'jade');
 app.set('views', __dirname);
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.render('index', {'env': app.get('env')});
