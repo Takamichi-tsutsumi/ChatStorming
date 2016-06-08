@@ -6,7 +6,7 @@ app.set('views', __dirname);
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {'env': app.get('env')});
 });
 
 const server = app.listen(3001, () => {
