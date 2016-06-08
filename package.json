@@ -5,7 +5,8 @@
   "main": "app.js",
   "repository": "git@github.com:Takamichi-Tsutsumi/authors-web-client.git",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./config/development/webpack.config.js",
+    "precompile": "node ./node_modules/webpack/bin/webpack.js --config ./config/production/webpack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "react-router": "^2.0.0-rc5",
     "redux": "^3.0.4",
     "redux-form": "^4.1.6",
-    "redux-promise": "^0.5.1"
+    "redux-promise": "^0.5.1",
+    "socketio": "^1.0.0"
   }
 }

@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 
 app.set('view engine', 'jade');
-
 app.set('views', __dirname);
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.render('index');
