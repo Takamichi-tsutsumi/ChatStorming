@@ -1,16 +1,20 @@
 const express = require('express');
 const app = express();
+const http = require('http').Server(app);
+const sio = require('./models/sio.js');
 
 app.set('view engine', 'jade');
 app.set('views', __dirname);
 app.use(express.static(__dirname + '/public'));
 
+http.listen(3001, function() {
+  console.log('server is listening on port 3001');
+});
+
 app.get('/', (req, res) => {
   res.render('index', {'env': app.get('env')});
 });
 
-const server = app.listen(3001, () => {
-  const host = server.address().address;
-  const port = server.address().port;
-  console.log('authors listening at http://%s:%s', host, port);
-});
+
+// socket.io
+sio(http);

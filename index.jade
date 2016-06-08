@@ -3,7 +3,9 @@ html
     title ChatMap | Brain Storming Application
   body
     div.container
+    script(src="/vendor/socket.io.js")
     if env == 'development'
         script(src="http://localhost:8080/bundle.js")
     else
         script(src="/bin/bundle.js")
+    script(src="/bin/sockettest.js")
