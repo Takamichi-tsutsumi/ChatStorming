@@ -68,18 +68,20 @@ export class NodeList extends Component {
               contentType: 'application/json',
               success: function(response) {
                   console.log(response);
+                  const updated_nodes = this.state.nodes;
+                  for (w in response.keywords) {
+                      updated_nodes.splice(0, 0, w);
+                  }
+                  this.setState({
+                      nodes: updated_nodes
+                  })
               },
               error: function(response) {
                   console.log(response);
               }
           });
 
-        //   const updated_nodes = this.state.nodes;
-        //   updated_nodes.splice(0, 0, result);
-          //
-        //   this.setState({
-        //       nodes: updated_nodes
-        //   })
+
       }
   }
 

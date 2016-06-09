@@ -25567,18 +25567,18 @@
 	                    contentType: 'application/json',
 	                    success: function success(response) {
 	                        console.log(response);
+	                        var updated_nodes = this.state.nodes;
+	                        for (w in response.keywords) {
+	                            updated_nodes.splice(0, 0, w);
+	                        }
+	                        this.setState({
+	                            nodes: updated_nodes
+	                        });
 	                    },
 	                    error: function error(response) {
 	                        console.log(response);
 	                    }
 	                });
-
-	                //   const updated_nodes = this.state.nodes;
-	                //   updated_nodes.splice(0, 0, result);
-	                //
-	                //   this.setState({
-	                //       nodes: updated_nodes
-	                //   })
 	            }
 	        }
 	    }, {
