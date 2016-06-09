@@ -58,7 +58,6 @@ export class NodeList extends Component {
   }
 
   addWords(text) {
-      console.log(text);
       if (text != "") {
           $.ajax({
               type: 'post',
@@ -67,21 +66,20 @@ export class NodeList extends Component {
               dataType: 'json',
               contentType: 'application/json',
               success: function(response) {
-                  console.log(response);
                   const updated_nodes = this.state.nodes;
-                  for (w in response.keywords) {
-                      updated_nodes.splice(0, 0, w);
-                  }
+                  Array.forEach(response.keywords, function(word) {
+                      if ($.inArray(word, updated_nodes) == -1) {
+                          updated_nodes.splice(0, 0, word);
+                      }
+                  })
                   this.setState({
                       nodes: updated_nodes
                   })
-              },
+              }.bind(this),
               error: function(response) {
                   console.log(response);
               }
           });
-
-
       }
   }
 

@@ -25557,7 +25557,6 @@
 	    }, {
 	        key: 'addWords',
 	        value: function addWords(text) {
-	            console.log(text);
 	            if (text != "") {
 	                $.ajax({
 	                    type: 'post',
@@ -25565,16 +25564,17 @@
 	                    data: JSON.stringify({ text: text }),
 	                    dataType: 'json',
 	                    contentType: 'application/json',
-	                    success: function success(response) {
-	                        console.log(response);
+	                    success: function (response) {
 	                        var updated_nodes = this.state.nodes;
-	                        for (w in response.keywords) {
-	                            updated_nodes.splice(0, 0, w);
-	                        }
+	                        Array.forEach(response.keywords, function (word) {
+	                            if ($.inArray(word, updated_nodes) == -1) {
+	                                updated_nodes.splice(0, 0, word);
+	                            }
+	                        });
 	                        this.setState({
 	                            nodes: updated_nodes
 	                        });
-	                    },
+	                    }.bind(this),
 	                    error: function error(response) {
 	                        console.log(response);
 	                    }
