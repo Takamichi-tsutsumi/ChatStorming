@@ -26905,7 +26905,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26935,66 +26935,104 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Home = function (_Component) {
-		_inherits(Home, _Component);
+	  _inherits(Home, _Component);
 
-		function Home(props) {
-			_classCallCheck(this, Home);
+	  function Home(props) {
+	    _classCallCheck(this, Home);
 
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
 
-			_this.state = { projects: [] };
-			return _this;
-		}
+	    _this.state = { projects: [] };
+	    return _this;
+	  }
 
-		_createClass(Home, [{
-			key: 'project_link',
-			value: function project_link(self) {
-				return self.state.projects.map(function (project) {
-					return _react2.default.createElement(
-						'li',
-						{ key: project["id"] },
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{
-								to: '/project/' + project["id"]
-							},
-							project["name"]
-						)
-					);
-				});
-			}
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
+	  _createClass(Home, [{
+	    key: 'project_link',
+	    value: function project_link(self) {
+	      return self.state.projects.map(function (project) {
+	        return _react2.default.createElement(
+	          'tr',
+	          { key: project["id"] },
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '20160603 19:00'
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            'チーム / ',
+	            project["name"]
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/project/' + project["id"] },
+	              _react2.default.createElement('img', { src: '../src/images/ima_03.png', alt: '' })
+	            )
+	          )
+	        );
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
 
-				_axios2.default.get('http://153.126.215.94/api').then(function (response) {
-					var projects = response.data.Project.map(function (obj) {
-						return { id: obj["id"], name: obj["name"] };
-					});
-					if (projects.length != 0) {
-						_this2.setState({ projects: projects });
-					}
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(_form.Form, null),
-					this.project_link(this),
-					_react2.default.createElement(
-						_reactRouter.Link,
-						{ to: '/project' },
-						'Link'
-					)
-				);
-			}
-		}]);
+	      _axios2.default.get('http://153.126.215.94/api').then(function (response) {
+	        var projects = response.data.Project.map(function (obj) {
+	          return { id: obj["id"], name: obj["name"] };
+	        });
+	        if (projects.length != 0) {
+	          _this2.setState({ projects: projects });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'home_container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'top' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            _react2.default.createElement('img', { src: '../src/images/logo.png', alt: '' })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'new' },
+	          _react2.default.createElement(_form.Form, { id: 'newmap', action: '#' })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'history' },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            '■ 過去のワーク ■'
+	          ),
+	          _react2.default.createElement(
+	            'table',
+	            null,
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              this.project_link(this)
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-		return Home;
+	  return Home;
 	}(_react.Component);
 
 	exports.default = Home;
@@ -27048,7 +27086,7 @@
 				if (this.state["name"] == "" || this.state["theme"] == "") {
 					return { "message": "入力して下さい" };
 				}
-				_axios2.default.post('http://153.126.215.94/api', this.state).then(function (response) {
+				_axios2.default.post('http://153.126.215.94/api/create', JSON.stringify(this.state)).then(function (response) {
 					console.log(response);
 					window.location.href = './project/' + response.id;
 				}).catch(function (response) {
@@ -27062,48 +27100,64 @@
 				var _this2 = this;
 
 				return _react2.default.createElement(
-					'div',
+					'form',
 					null,
 					_react2.default.createElement(
-						'ul',
+						'table',
 						null,
 						_react2.default.createElement(
-							'span',
+							'tbody',
 							null,
-							'Project name '
-						),
-						_react2.default.createElement('input', {
-							className: 'name',
-							value: this.state.name,
-							onChange: function onChange(event) {
-								return _this2.setState({ name: event.target.value });
-							}
-						})
-					),
-					_react2.default.createElement(
-						'ul',
-						null,
-						_react2.default.createElement(
-							'span',
-							null,
-							'Theme '
-						),
-						_react2.default.createElement('input', {
-							className: 'theme',
-							value: this.state.theme,
-							onChange: function onChange(event) {
-								return _this2.setState({ theme: event.target.value });
-							}
-						})
-					),
-					_react2.default.createElement(
-						'ul',
-						null,
-						_react2.default.createElement(
-							'button',
-							{ onClick: this.createProject.bind(this) },
-							'Click here!'
+							_react2.default.createElement(
+								'tr',
+								null,
+								_react2.default.createElement(
+									'th',
+									null,
+									'プロジェクト名'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									_react2.default.createElement('input', {
+										type: 'text',
+										name: 'text',
+										value: this.state.name,
+										onChange: function onChange(event) {
+											return _this2.setState({ name: event.target.value });
+										}
+									})
+								)
+							),
+							_react2.default.createElement(
+								'tr',
+								null,
+								_react2.default.createElement(
+									'th',
+									null,
+									'テーマ'
+								),
+								_react2.default.createElement(
+									'td',
+									null,
+									_react2.default.createElement('input', {
+										type: 'text',
+										name: 'name',
+										value: this.state.theme,
+										onChange: function onChange(event) {
+											return _this2.setState({ theme: event.target.value });
+										}
+									})
+								)
+							)
 						)
+					),
+					_react2.default.createElement(
+						'button',
+						{
+							className: 'btn2',
+							onClick: this.createProject.bind(this) },
+						'新しいワークをする'
 					)
 				);
 			}
