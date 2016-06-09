@@ -8,18 +8,20 @@ export class NodeList extends Component {
   componentDidMount() {
     //const node = axios.get('URL');
     const node = ["node1", "node2"]
-    this.setState({node: node});
+    this.setState({nodes: node});
   }
 
-  deleteSelected(mapNodeName) {
-    const node = this.state.node
-    updated_node = node.slice(node.indexOf(mapNodeName), 1)
-    this.setState({node: updated_node, selected: ""})
+  deleteSelected() {
+    const nodes = this.state.nodes
+    const updated_node = nodes;
+    console.log(updated_node)
+    updated_node.splice(nodes.indexOf(this.state.selected),1)
+    this.setState({nodes: updated_node, selected: ""})
   }
 
-  NodeItems() {
-    if (this.state.node.length === 0) return () => {return ""};
-    return this.state.node.map((nodeitem) => {
+  nodeItems() {
+    if (this.state.nodes.length === 0) return () => {return ""};
+    return this.state.nodes.map((nodeitem) => {
           return (
             <NodeItem
             className={ this.state.selected == nodeitem ? "selected" : "" }
@@ -37,15 +39,16 @@ export class NodeList extends Component {
   constructor(props) {
       super(props)
 
-      this.state = { node: [], selected: "" };
-      this.NodeItems = this.NodeItems.bind(this)
+      this.state = { nodes: [], selected: "" };
+      this.nodeItems = this.nodeItems.bind(this)
   }
 
 
   render() {
       return(
           <ul>
-            {this.NodeItems()}
+            <button onClick={() => this.deleteSelected()} />
+            {this.nodeItems()}
           </ul>
       )
   }
