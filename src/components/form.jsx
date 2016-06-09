@@ -25,27 +25,35 @@ export class Form extends Component {
 
   render() {
 		return (
-			<div>
-				<ul>
-				  <span>Project name </span>
-					<input
-					  className="name"
-						value={ this.state.name }
-						onChange={(event) => this.setState({ name: event.target.value })}
-					/>
-				</ul>
-				<ul>
-				  <span>Theme </span>
-					<input
-					  className="theme"
-						value={ this.state.theme }
-						onChange={(event) => this.setState({ theme: event.target.value })}
-					/>
-				</ul>
-				<ul>
-					<button onClick={ this.createProject.bind(this) }>Click here!</button>
-				</ul>
-			</div>
+			<form>
+				<table>
+					<tbody>
+						<tr>
+						  <th>プロジェクト名</th>
+							<td><input
+							  type="text"
+								name="text"
+								value={ this.state.name }
+								onChange={(event) => this.setState({ name: event.target.value })}
+							/></td>
+						</tr>
+						<tr>
+						  <th>テーマ</th>
+							<td><input
+							  type="text"
+								name="name"
+								value={ this.state.theme }
+								onChange={(event) => this.setState({ theme: event.target.value })}
+							/></td>
+						</tr>
+					</tbody>
+				</table>
+				<button
+				  className="btn2"
+					onClick={ this.createProject.bind(this) }>
+					新しいワークをする
+				</button>
+			</form>
 		)
 	}
 }

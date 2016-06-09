@@ -15,11 +15,15 @@ export default class Home extends Component {
 		project_link(self) {
 		  return self.state.projects.map((project) => {
 				return (
-					<li key={ project["id"] }>
-				  	<Link
-						  to={`/project/${project["id"]}`}
-						>{project["name"]}</Link>
-					</li>
+					<tr key={ project["id"] }>
+            <td>20160603 19:00</td>
+            <td>チーム / {project["name"]}</td>
+            <td>
+              <Link to={`/project/${project["id"]}`}>
+                <img src="../src/images/ima_03.png" alt="" />
+              </Link>
+            </td>
+					</tr>
 			  )
 		  });
 		}
@@ -38,10 +42,21 @@ export default class Home extends Component {
 
     render() {
         return (
-          <div>
-					  <Form />
-            { this.project_link(this) }
-						<Link to="/project">Link</Link>
+          <div className="home_container">
+            <div className="top">
+              <Link to="/"><img src="../src/images/logo.png" alt="" /></Link>
+            </div>
+            <div className="new">
+              <Form id="newmap" action="#" />
+            </div>
+            <div className="history">
+              <p>■ 過去のワーク ■</p>
+              <table>
+                <tbody>
+                  { this.project_link(this) }
+                </tbody>
+              </table>
+            </div>
           </div>
         );
     }
