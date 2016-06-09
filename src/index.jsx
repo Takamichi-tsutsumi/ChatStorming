@@ -8,6 +8,6 @@ import Home from './components/home.jsx'
 ReactDOM.render((
   <Router history={ hashHistory }>
 		<Route path="/" component={ Home }/>
-    <Route path="/project" component={ App }/>
+		  <Route path="project/:project_id" component={ App }/>
 	</Router>
 ),document.querySelector('.container'));
