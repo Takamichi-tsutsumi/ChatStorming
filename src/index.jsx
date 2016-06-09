@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import { NodeList } from './components/NodeList.jsx';
+import { Graph } from './components/Graph.jsx';
 
 
 class App extends Component {
@@ -12,7 +13,7 @@ class App extends Component {
     render() {
         return (
             <div>
-            <div>Hello App</div>
+            <Graph />
             <NodeList />
             </div>
         )

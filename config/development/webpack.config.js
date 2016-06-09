@@ -15,6 +15,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    alias: {
+        graph: './src/model/mindGraph'
+    }
   },
   devServer: {
     historyApiFallback: true,
