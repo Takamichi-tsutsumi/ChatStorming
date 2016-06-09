@@ -10,7 +10,8 @@ export class SuggestionList extends Component {
 
 		this.state = { nodes: ["node4", "node5"] }
 		this.suggestions = this.suggestions.bind(this)
-		this.getSuggestions("あの日見た花の名を僕はまだ知らぬ")
+
+		window.suggestionList = this;
 	}
 
   getSuggestions(word) {
@@ -30,12 +31,19 @@ export class SuggestionList extends Component {
 	}
 
 	deleteSelected() {
-    const nodes = this.state.nodes
-    const updated_node = nodes;
-    console.log(updated_node)
-    updated_node.splice(nodes.indexOf(window.selected),1)
-    this.setState({nodes: updated_node})
-  }
+		const nodes = this.state.nodes;
+		if (nodes.length == 1) {
+			this.setState({
+				nodes: []
+			})
+		} else if ($.inArray(window.selected, this.state.nodes)) {
+			const updated_node = nodes;
+			updated_node.splice(nodes.indexOf(window.selected),1)
+			this.setState({
+				nodes: updated_node
+			})
+		}
+	}
 
 	suggestions() {
 		console.log(this.state.nodes)

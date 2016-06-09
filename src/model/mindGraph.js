@@ -36,6 +36,9 @@ function mindGraph(el) {
         this.addLink(parent, child);
 
         window.nodeList.deleteSelected();
+        window.suggestionList.deleteSelected();
+
+        window.suggestionList.getSuggestions(child);
     }
 
     var addChild = this.addChild.bind(this);

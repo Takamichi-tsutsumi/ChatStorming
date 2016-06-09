@@ -23,13 +23,13 @@ export class NodeList extends Component {
   }
 
   deleteSelected() {
-      const nodes = this.state.nodes
+      const nodes = this.state.nodes;
       console.log(nodes);
       if (nodes.length == 1) {
           this.setState({
               nodes: []
           })
-      } else {
+      } else if ($.inArray(window.selected, this.state.node)){
           const updated_node = nodes;
           updated_node.splice(nodes.indexOf(window.selected),1)
           this.setState({
@@ -59,13 +59,22 @@ export class NodeList extends Component {
 
   addWords(result) {
       if (result != "") {
+          $.ajax({
+              type: 'post',
+              url: 'http://153.126.215.94/api/morphologic',
+              data: JSON.stringify({ text: result }),
+              dataType: 'json',
+              contentType: 'application/json'
+          }, function(response) {
+              console.log(response);
+          });
 
-          const updated_nodes = this.state.nodes;
-          updated_nodes.splice(0, 0, result);
-          
-          this.setState({
-              nodes: updated_nodes
-          })
+        //   const updated_nodes = this.state.nodes;
+        //   updated_nodes.splice(0, 0, result);
+          //
+        //   this.setState({
+        //       nodes: updated_nodes
+        //   })
       }
   }
 
