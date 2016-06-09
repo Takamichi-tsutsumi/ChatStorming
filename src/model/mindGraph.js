@@ -69,7 +69,6 @@ function mindGraph(el) {
     var nodes = force.nodes(),
         links = force.links();
 
-
     var update = function() {
 
         var link = vis.selectAll('line.link')
@@ -87,6 +86,7 @@ function mindGraph(el) {
 
         var nodeEnter = node.enter().append('g')
             .attr('class', 'node')
+            .attr('id', 3)
             .call(force.drag);
 
         nodeEnter.append('circle')
