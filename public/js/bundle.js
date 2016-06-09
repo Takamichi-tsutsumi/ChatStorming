@@ -25375,6 +25375,8 @@
 	        window.suggestionList.deleteSelected();
 
 	        window.suggestionList.getSuggestions(child);
+
+	        window.selected = "";
 	    };
 
 	    var addChild = this.addChild.bind(this);
@@ -25427,8 +25429,8 @@
 	        });
 
 	        nodeEnter.on('click', function (d) {
-	            addChild(d.id, window.selected);
-	        });
+	            if (window.selected != '') addChild(d.id, window.selected);
+	        }).style('cursor', 'pointer');
 
 	        node.exit().remove();
 	        window.node = node;
@@ -25510,18 +25512,9 @@
 	    }
 
 	    _createClass(NodeList, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var nodes = ["node1", "node2"];
-	            this.setState({
-	                nodes: nodes
-	            });
-	        }
-	    }, {
 	        key: 'deleteSelected',
 	        value: function deleteSelected() {
 	            var nodes = this.state.nodes;
-	            console.log(nodes);
 	            if (nodes.length == 1) {
 	                this.setState({
 	                    nodes: []
@@ -26835,7 +26828,7 @@
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SuggestionList).call(this, props));
 
-			_this.state = { nodes: ["node4", "node5"] };
+			_this.state = { nodes: [] };
 			_this.suggestions = _this.suggestions.bind(_this);
 
 			window.suggestionList = _this;
@@ -26852,7 +26845,7 @@
 					});
 					if (suggested.length != 0) {
 
-						nodes.splice(0, 0, suggested[0]);
+						nodes.splice(0, 0, suggested[Math.floor(Math.random() * 10)]);
 
 						this.setState(_extends({}, nodes));
 					}
@@ -26879,7 +26872,6 @@
 			value: function suggestions() {
 				var _this2 = this;
 
-				console.log(this.state.nodes);
 				return this.state.nodes.map(function (nodeitem) {
 					return _react2.default.createElement(_NodeItem2.default, {
 						className: window.selected == nodeitem ? "selected" : "",

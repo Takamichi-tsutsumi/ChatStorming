@@ -8,7 +8,7 @@ export class SuggestionList extends Component {
 	constructor(props) {
 	  super(props)
 
-		this.state = { nodes: ["node4", "node5"] }
+		this.state = { nodes: [] }
 		this.suggestions = this.suggestions.bind(this)
 
 		window.suggestionList = this;
@@ -23,7 +23,7 @@ export class SuggestionList extends Component {
 						})
 						if (suggested.length != 0) {
 
-							nodes.splice(0,0, suggested[0])
+							nodes.splice(0,0, suggested[Math.floor(Math.random () * 10)])
 
 							this.setState({ ...nodes })
 						}
@@ -46,7 +46,6 @@ export class SuggestionList extends Component {
 	}
 
 	suggestions() {
-		console.log(this.state.nodes)
 		return this.state.nodes.map((nodeitem) => {
 			return <NodeItem
 				className={ window.selected == nodeitem ? "selected" : "" }

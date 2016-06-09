@@ -15,16 +15,8 @@ export class NodeList extends Component {
       Speech(this);
   }
 
-  componentDidMount() {
-    const nodes = ["node1", "node2"]
-    this.setState({
-        nodes: nodes
-    });
-  }
-
   deleteSelected() {
       const nodes = this.state.nodes;
-      console.log(nodes);
       if (nodes.length == 1) {
           this.setState({
               nodes: []
