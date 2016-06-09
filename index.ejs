@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>ChatStorming | Brain Storming Application</title>
+  <link rel="stylesheet" href="/css/style.css" media="screen" charset="utf-8">
+</head>
+<body>
+  <div class="container"></div>
+
+  <script src="/vendor/js/jquery-1.12.4.min.js"></script>
+  <script src="/vendor/js/socket.io.js"></script>
+  <script src="/vendor/js/d3.v3.min.js"></script>
+  <% if (env == 'development') { %>
+    <script src="http://localhost:8080/bundle.js"></script>
+  <% } else { %>
+    <script src="/js/bundle.js"></script>
+  <% } %>
+
+  <svg class="style-svg">
+    <style type="text/css" >
+      <![CDATA[
+      .link {
+        fill: #333333;
+        stroke: #333333;
+      }
+      ]]>
+    </style>
+  </svg>
+</body>

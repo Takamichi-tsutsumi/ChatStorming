@@ -1,3 +1,5 @@
+window.selected = "Takamichi";
+
 function mindGraph(el) {
 
     // Add and remove element on the graph object
@@ -36,6 +38,8 @@ function mindGraph(el) {
         this.addLink(parent, child);
     }
 
+    var addChild = this.addChild.bind(this);
+
     var findNode = function(id) {
         for (var i=0; i < nodes.length; i++) {
             if (nodes[i].id === id) return nodes[i];
@@ -49,8 +53,6 @@ function mindGraph(el) {
     }
 
     // set up D3 visualization in the specific element
-    // var w = $(el).innerWidth(),
-        // h = $(el).innerHeight();
     var w = 900,
         h = 500;
 
@@ -89,7 +91,7 @@ function mindGraph(el) {
 
         nodeEnter.append('circle')
             .attr('class', 'circle')
-            .attr('fill', 'skyblue')
+            .attr('fill', '#ffb76a')
             .attr('r', '28px');
 
         nodeEnter.append('text')
@@ -97,6 +99,10 @@ function mindGraph(el) {
             .attr('dx', -20)
             .attr('dy', '.35em')
             .text(function(d) { return d.id });
+
+        nodeEnter.on('click', function(d) {
+            addChild(d.id, window.selected);
+        })
 
         node.exit().remove();
         window.node = node;
@@ -113,7 +119,7 @@ function mindGraph(el) {
 
     }
 
-    update()
+    update();
 }
 
 export default mindGraph
