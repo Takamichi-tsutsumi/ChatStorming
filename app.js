@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const sio = require('./models/sio.js');
+const ejs = require('ejs')
 
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.set('views', __dirname);
 app.use(express.static(__dirname + '/public'));
 

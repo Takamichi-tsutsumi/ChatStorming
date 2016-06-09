@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.9.1",
     "babel-preset-stage-1": "^6.1.18",
+    "ejs": "^2.4.2",
     "eslint": "^2.8.0",
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-jsx-a11y": "^1.0.2",
