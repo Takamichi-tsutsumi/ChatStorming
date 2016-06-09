@@ -14,7 +14,7 @@ export class Form extends Component {
 		if (this.state["name"] == "" || this.state["theme"] == "") {
 			return {"message": "入力して下さい"}
 		}
-		axios.post('http://153.126.215.94/api', this.state).then((response) => {
+		axios.post('http://153.126.215.94/api/create', JSON.stringify(this.state)).then((response) => {
 			console.log(response);
 			window.location.href = `./project/${response.id}`;
 		}).catch((response) => {
