@@ -1,30 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, hashHistory } from 'react-router';
 
-import { NodeList } from './components/NodeList.jsx';
-import { Graph } from './components/Graph.jsx';
-import { SuggestionList } from './components/SuggestionList.jsx';
+import App from './components/app.jsx'
+import Home from './components/home.jsx'
 
-
-class App extends Component {
-    constructor(props) {
-        super(props);
-
-        window.selected = "";
-    }
-
-    render() {
-        return (
-            <div>
-              <Graph />
-              <NodeList />
-              <SuggestionList />
-            </div>
-        )
-    }
-}
-
-
-ReactDOM.render(
-    <App />,
-    document.querySelector('.container'));
+ReactDOM.render((
+  <Router history={ hashHistory }>
+		<Route path="/" component={ Home }/>
+    <Route path="/project" component={ App }/>
+	</Router>
+),document.querySelector('.container'));
