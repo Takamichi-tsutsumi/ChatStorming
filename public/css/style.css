@@ -1,9 +1,343 @@
-svg.style-svg {
-    height: 0;
-    width: 0;
+@charset "utf-8";
+
+/*clear*/
+
+/* デフォルト文字設定 */
+body{
+	font-family:メイリオ,sans-serif;
+	color: #50473d;
+	font-size:13px;
+	*font-size:small;
+	line-height:1.4;
+    margin:0;
 }
 
-.graph {
-    height: 500px;
-    width: 950px;
+/* リストマーカーを非表示 */
+ul,ol{
+	list-style-type:none;
+}
+
+/* テーブルセルのボーダーの設定 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* 画像とフォームパーツの上下位置をテキストの真ん中に */
+img, input, select, textarea {
+	vertical-align: middle;
+}
+
+
+/* デフォルトリンク色の設定 */
+a{
+	color:#50473d;
+}
+
+a:hover{
+	color:#000000;
+}
+
+/* 画像リンクの設定 */
+a img{
+	opacity:1;
+	filter: alpha(opacity=100);
+}
+
+/*a:hover{
+	opacity:0.7;
+	filter: alpha(opacity=75);
+}*/
+
+/*	clearfix
+------------------------------*/
+.clearfix:after {/*for modern browser*/
+   content: "";
+   display: block;
+   clear: both;
+}
+
+* html .clearfix { zoom:1; } /*for IE6*/
+*:first-child+html .clearfix { zoom:1; } /*for IE7*/
+
+
+/*index*/
+
+
+/*配置*/
+.top{
+    height:60px;
+}
+
+.new{
+    height:200px;
+}
+
+.history{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/*トップ*/
+.top img{
+    margin: 5px;
+    height:30px;
+}
+
+/*フォーム*/
+.new{
+    background-color: #ffd1a0;
+    margin-bottom: 20px;
+}
+
+#newmap{
+    width:500px;
+    height:160px;
+    margin:20px auto;
+    text-align: center;
+    padding: 30px 0;
+}
+
+#newmap table{
+    font-size: 18px;
+    margin-bottom: 20px!important;
+}
+
+#newmap table th{
+    width:200px;
+    font-weight:normal!important;
+    padding-top: 10px;
+}
+
+#newmap table td input{
+    width:200px;
+}
+
+/*履歴*/
+.history{
+    text-align: center;
+}
+
+.history p{
+    font-size: 18px;
+    margin:20px 0;
+}
+
+.history table img{
+    width:30px;
+}
+
+.history table{
+    width:700px;
+    margin:0 auto;
+    text-align: center;
+    font-size: 16px;
+}
+
+.history table tr td:first-of-type{
+    width:200px;
+}
+
+.history table tr td:nth-of-type(2){
+    width:300px;
+    text-align: left;
+}
+
+.history table tr td:last-of-type-of-type{
+    width:200px;
+}
+
+/*ボタン*/
+button:hover{
+    cursor: pointer;
+}
+
+.btn2 {
+	display: inline-block;
+	width: 200px;
+	height: 54px;
+	text-align: center;
+	text-decoration: none;
+	line-height: 54px;
+	outline: none;
+    font-size: 20px;
+}
+
+.btn2::before,
+.btn2::after {
+	position: absolute;
+	z-index: -1;
+	display: block;
+	content: '';
+}
+.btn2,
+.btn2::before,
+.btn2::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+
+.btn2 {
+	position: relative;
+	z-index: 2;
+	background-color: #95d41d;
+	border: 2px solid #95d41d;
+	color: #fff;
+	line-height: 50px;
+}
+.btn2:hover {
+	background-color: #fff;
+	border-color: #95d41d;
+	color: #95d41d;
+}
+.btn2::before,
+.btn2::after {
+	left: 0;
+	width: 100%;
+	height: 50%;
+	background-color: #95d41d;
+}
+.btn2::before {
+	top: 0;
+}
+.btn2::after {
+	bottom: 0;
+}
+.btn2:hover::before,
+.btn2:hover::after {
+	height: 0;
+	background-color: #95d41d;
+}
+
+/*app*/
+
+/*配置*/
+
+
+.box1{
+    width:80%;
+    float:left;
+}
+
+.box2{
+    width:20%;
+    float:right;
+}
+
+.app_container:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+
+/*メイン*/
+
+.main{
+    background-image:url(images/note.jpg);
+    background-repeat:repeat;
+}
+
+.menubar{
+    height:60px;
+}
+
+.menubar img{
+    margin: 5px;
+    height:30px;
+}
+
+.menubar .icon{
+    float:right;
+}
+
+.map{
+    height:90%;
+    clear:both;
+}
+
+.map img{
+    height:100%;
+}
+
+/*サジェスト*/
+.sub1{
+    height:80px;
+    overflow: hidden;
+    margin:20px 5% 20px 5%;
+}
+
+
+.sub1 li{
+    width:160px;
+    height:35px;
+    background-color:#f5f069;
+    font-size: 12px;
+    float:left;
+    margin-left:10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+li span{
+    display:table-cell;
+    height:35px;
+    width: 160px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+/*アイディア*/
+
+.sub2{
+    overflow:hidden;
+    margin: 20px 0;
+}
+
+.sub2 ul{
+    margin:0 auto;
+    width:160px;
+}
+
+.sub2 li{
+    width:160px;
+    height:35px;
+    background-color:#b4ea4c;
+    font-size: 12px;
+    margin-bottom:5px;
+    text-align: center;
+}
+
+.sub2 a{
+    text-decoration: none;
+}
+
+/*付箋風*/
+li{
+    position:relative;
+}
+
+li:after {
+    width:140px;
+    height:30px;
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    -webkit-box-shadow: 0 5px 5px #8a8a8a ;
+    -moz-box-shadow: 0 5px 5px #8a8a8a ;
+    box-shadow: 0 5px 5px #8a8a8a ;
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    transform: rotate(2deg);
+    z-index: -1; /* 重なり順を背面へ */
+}
+
+.selected{
+    background-color: #ffb76a!important;
 }
