@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { NodeList } from './components/NodeList.jsx';
 import { Graph } from './components/Graph.jsx';
+import { SuggestionList } from './components/SuggestionList.jsx';
 
 
 class App extends Component {
@@ -15,8 +16,9 @@ class App extends Component {
     render() {
         return (
             <div>
-            <Graph />
-            <NodeList />
+              <Graph />
+              <NodeList />
+              <SuggestionList />
             </div>
         )
     }

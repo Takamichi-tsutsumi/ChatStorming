@@ -39,18 +39,18 @@ export class NodeList extends Component {
   }
 
   constructor(props) {
-      super(props)
+    super(props)
 
-      this.state = { nodes: []};
-      this.nodeItems = this.nodeItems.bind(this)
+    this.state = { nodes: []};
+    this.nodeItems = this.nodeItems.bind(this)
   }
 
 
   render() {
-      return(
-          <ul>
-            {this.nodeItems()}
-          </ul>
-      )
+    return(
+      <ul>
+        {this.nodeItems()}
+      </ul>
+    )
   }
 }
