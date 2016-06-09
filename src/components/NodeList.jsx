@@ -35,14 +35,14 @@ export class NodeList extends Component {
     return this.state.nodes.map((nodeitem) => {
         return (
             <NodeItem
-            className={ window.selected == nodeitem ? "selected" : "" }
-            key={nodeitem}
-            nodeitem={nodeitem}
-            selected_change={
-              () => {
-                window.selected = nodeitem;
-                this.forceUpdate()
-              }
+              className={ window.selected == nodeitem ? "selected" : "" }
+              key={nodeitem}
+              nodeitem={nodeitem}
+              selected_change={
+                () => {
+                  window.selected = nodeitem;
+                  this.forceUpdate()
+              } 
             }
              />
         )
