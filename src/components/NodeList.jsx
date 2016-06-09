@@ -28,8 +28,8 @@ export class NodeList extends Component {
             key={nodeitem}
             nodeitem={nodeitem}
             selected_change={
-              window.selected = nodeName;
-            }}
+              () => {window.selected = nodeitem;}
+            }
              />
           )
     })
