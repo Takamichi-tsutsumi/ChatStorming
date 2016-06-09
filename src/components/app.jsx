@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, hashHistory, Link } from 'react-router';
 
 import { Graph } from './Graph.jsx';
 import { NodeList } from './NodeList.jsx';
@@ -15,16 +15,45 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-      console.log(this.props.params.id)
       this.setState({id: this.props.params.id})
     }
 
     render() {
         return (
-          <div>
-            <Graph />
-            <NodeList />
-            <SuggestionList />
+          <div className="app_container">
+            <div className="boxl">
+              <div className="main">
+                <Graph />
+                <div className="menubar">
+                  <img src="images/logo.png" alt="" />
+                  <Link to="#">
+                    <img
+                      src="image/img_02.png"
+                      className="icon"
+                      alt=""
+                    />
+                  </Link>
+                  <Link to="#">
+                    <img
+                      src="image/img_01.png"
+                      className="icon"
+                      alt=""
+                    />
+                  </Link>
+                </div>
+              </div>
+              <div className="map">
+                <img src="images/img_07.png" alt="" />
+              </div>
+            </div>
+            <div className="subl">
+              <SuggestionList />
+            </div>
+            <div className="box2">
+              <div className="sub2">
+                <NodeList />
+              </div>
+            </div>
           </div>
         );
     }

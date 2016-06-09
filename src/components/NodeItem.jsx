@@ -12,10 +12,10 @@ class NodeItem extends Component {
 	render() {
 		return (
 			<div
-			onClick={() => {this.props.selected_change(this.state.name)}}
-			className={this.props.className}
+			  onClick={() => {this.props.selected_change(this.state.name)}}
+			  className={this.props.className}
 			>
-        { this.state.name }
+			  <li><span>{ this.state.name }</span></li>
 			</div>
 		)
 	}
