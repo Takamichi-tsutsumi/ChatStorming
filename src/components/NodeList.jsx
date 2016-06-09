@@ -57,16 +57,21 @@ export class NodeList extends Component {
     })
   }
 
-  addWords(result) {
-      if (result != "") {
+  addWords(text) {
+      console.log(text);
+      if (text != "") {
           $.ajax({
               type: 'post',
               url: 'http://153.126.215.94/api/morphologic',
-              data: JSON.stringify({ text: result }),
+              data: JSON.stringify({ text: text }),
               dataType: 'json',
-              contentType: 'application/json'
-          }, function(response) {
-              console.log(response);
+              contentType: 'application/json',
+              success: function(response) {
+                  console.log(response);
+              },
+              error: function(response) {
+                  console.log(response);
+              }
           });
 
         //   const updated_nodes = this.state.nodes;

@@ -25556,16 +25556,21 @@
 	        }
 	    }, {
 	        key: 'addWords',
-	        value: function addWords(result) {
-	            if (result != "") {
+	        value: function addWords(text) {
+	            console.log(text);
+	            if (text != "") {
 	                $.ajax({
 	                    type: 'post',
 	                    url: 'http://153.126.215.94/api/morphologic',
-	                    data: JSON.stringify({ text: result }),
+	                    data: JSON.stringify({ text: text }),
 	                    dataType: 'json',
-	                    contentType: 'application/json'
-	                }, function (response) {
-	                    console.log(response);
+	                    contentType: 'application/json',
+	                    success: function success(response) {
+	                        console.log(response);
+	                    },
+	                    error: function error(response) {
+	                        console.log(response);
+	                    }
 	                });
 
 	                //   const updated_nodes = this.state.nodes;
