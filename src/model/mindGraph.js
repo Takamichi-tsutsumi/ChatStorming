@@ -36,6 +36,11 @@ function mindGraph(el) {
         this.addLink(parent, child);
 
         window.nodeList.deleteSelected();
+        window.suggestionList.deleteSelected();
+
+        window.suggestionList.getSuggestions(child);
+
+        window.selected = "";
     }
 
     var addChild = this.addChild.bind(this);
@@ -101,8 +106,8 @@ function mindGraph(el) {
             .text(function(d) { return d.id });
 
         nodeEnter.on('click', function(d) {
-            addChild(d.id, window.selected);
-        })
+            if (window.selected != '') addChild(d.id, window.selected);
+        }).style('cursor', 'pointer');
 
         node.exit().remove();
         window.node = node;

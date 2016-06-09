@@ -15,21 +15,13 @@ export class NodeList extends Component {
       Speech(this);
   }
 
-  componentDidMount() {
-    const nodes = ["node1", "node2"]
-    this.setState({
-        nodes: nodes
-    });
-  }
-
   deleteSelected() {
-      const nodes = this.state.nodes
-      console.log(nodes);
+      const nodes = this.state.nodes;
       if (nodes.length == 1) {
           this.setState({
               nodes: []
           })
-      } else {
+      } else if ($.inArray(window.selected, this.state.node)){
           const updated_node = nodes;
           updated_node.splice(nodes.indexOf(window.selected),1)
           this.setState({
@@ -57,15 +49,29 @@ export class NodeList extends Component {
     })
   }
 
-  addWords(result) {
-      if (result != "") {
-
-          const updated_nodes = this.state.nodes;
-          updated_nodes.splice(0, 0, result);
-          
-          this.setState({
-              nodes: updated_nodes
-          })
+  addWords(text) {
+      if (text != "") {
+          $.ajax({
+              type: 'post',
+              url: 'http://153.126.215.94/api/morphologic',
+              data: JSON.stringify({ text: text }),
+              dataType: 'json',
+              contentType: 'application/json',
+              success: function(response) {
+                  const updated_nodes = this.state.nodes;
+                  Array.forEach(response.keywords, function(word) {
+                      if ($.inArray(word, updated_nodes) == -1) {
+                          updated_nodes.splice(0, 0, word);
+                      }
+                  })
+                  this.setState({
+                      nodes: updated_nodes
+                  })
+              }.bind(this),
+              error: function(response) {
+                  console.log(response);
+              }
+          });
       }
   }
 

@@ -74,10 +74,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactDom2.default.render(_react2.default.createElement(
-	  _reactRouter.Router,
-	  { history: _reactRouter.hashHistory },
-	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _home2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/project', component: _app2.default })
+			_reactRouter.Router,
+			{ history: _reactRouter.hashHistory },
+			_react2.default.createElement(_reactRouter.Route, { path: '/', component: _home2.default }),
+			_react2.default.createElement(_reactRouter.Route, { path: 'project/:project_id', component: _app2.default })
 	), document.querySelector('.container'));
 
 /***/ },
@@ -25206,7 +25206,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -25236,31 +25236,38 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var App = function (_Component) {
-	    _inherits(App, _Component);
+	  _inherits(App, _Component);
 
-	    function App(props) {
-	        _classCallCheck(this, App);
+	  function App(props) {
+	    _classCallCheck(this, App);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
-	        window.selected = "";
-	        return _this;
+	    _this.state = { id: 0 };
+	    window.selected = "";
+	    return _this;
+	  }
+
+	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log(this.props.params.id);
+	      this.setState({ id: this.props.params.id });
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Graph.Graph, null),
+	        _react2.default.createElement(_NodeList.NodeList, null),
+	        _react2.default.createElement(_SuggestionList.SuggestionList, null)
+	      );
+	    }
+	  }]);
 
-	    _createClass(App, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Graph.Graph, null),
-	                _react2.default.createElement(_NodeList.NodeList, null),
-	                _react2.default.createElement(_SuggestionList.SuggestionList, null)
-	            );
-	        }
-	    }]);
-
-	    return App;
+	  return App;
 	}(_react.Component);
 
 	exports.default = App;
@@ -25365,6 +25372,11 @@
 	        this.addLink(parent, child);
 
 	        window.nodeList.deleteSelected();
+	        window.suggestionList.deleteSelected();
+
+	        window.suggestionList.getSuggestions(child);
+
+	        window.selected = "";
 	    };
 
 	    var addChild = this.addChild.bind(this);
@@ -25417,8 +25429,8 @@
 	        });
 
 	        nodeEnter.on('click', function (d) {
-	            addChild(d.id, window.selected);
-	        });
+	            if (window.selected != '') addChild(d.id, window.selected);
+	        }).style('cursor', 'pointer');
 
 	        node.exit().remove();
 	        window.node = node;
@@ -25500,23 +25512,14 @@
 	    }
 
 	    _createClass(NodeList, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var nodes = ["node1", "node2"];
-	            this.setState({
-	                nodes: nodes
-	            });
-	        }
-	    }, {
 	        key: 'deleteSelected',
 	        value: function deleteSelected() {
 	            var nodes = this.state.nodes;
-	            console.log(nodes);
 	            if (nodes.length == 1) {
 	                this.setState({
 	                    nodes: []
 	                });
-	            } else {
+	            } else if ($.inArray(window.selected, this.state.node)) {
 	                var updated_node = nodes;
 	                updated_node.splice(nodes.indexOf(window.selected), 1);
 	                this.setState({
@@ -25546,14 +25549,28 @@
 	        }
 	    }, {
 	        key: 'addWords',
-	        value: function addWords(result) {
-	            if (result != "") {
-
-	                var updated_nodes = this.state.nodes;
-	                updated_nodes.splice(0, 0, result);
-
-	                this.setState({
-	                    nodes: updated_nodes
+	        value: function addWords(text) {
+	            if (text != "") {
+	                $.ajax({
+	                    type: 'post',
+	                    url: 'http://153.126.215.94/api/morphologic',
+	                    data: JSON.stringify({ text: text }),
+	                    dataType: 'json',
+	                    contentType: 'application/json',
+	                    success: function (response) {
+	                        var updated_nodes = this.state.nodes;
+	                        Array.forEach(response.keywords, function (word) {
+	                            if ($.inArray(word, updated_nodes) == -1) {
+	                                updated_nodes.splice(0, 0, word);
+	                            }
+	                        });
+	                        this.setState({
+	                            nodes: updated_nodes
+	                        });
+	                    }.bind(this),
+	                    error: function error(response) {
+	                        console.log(response);
+	                    }
 	                });
 	            }
 	        }
@@ -26811,9 +26828,10 @@
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SuggestionList).call(this, props));
 
-			_this.state = { nodes: ["node4", "node5"] };
+			_this.state = { nodes: [] };
 			_this.suggestions = _this.suggestions.bind(_this);
-			_this.getSuggestions("あの日見た花の名を僕はまだ知らぬ");
+
+			window.suggestionList = _this;
 			return _this;
 		}
 
@@ -26827,7 +26845,7 @@
 					});
 					if (suggested.length != 0) {
 
-						nodes.splice(0, 0, suggested[0]);
+						nodes.splice(0, 0, suggested[Math.floor(Math.random() * 10)]);
 
 						this.setState(_extends({}, nodes));
 					}
@@ -26837,17 +26855,23 @@
 			key: 'deleteSelected',
 			value: function deleteSelected() {
 				var nodes = this.state.nodes;
-				var updated_node = nodes;
-				console.log(updated_node);
-				updated_node.splice(nodes.indexOf(window.selected), 1);
-				this.setState({ nodes: updated_node });
+				if (nodes.length == 1) {
+					this.setState({
+						nodes: []
+					});
+				} else if ($.inArray(window.selected, this.state.nodes)) {
+					var updated_node = nodes;
+					updated_node.splice(nodes.indexOf(window.selected), 1);
+					this.setState({
+						nodes: updated_node
+					});
+				}
 			}
 		}, {
 			key: 'suggestions',
 			value: function suggestions() {
 				var _this2 = this;
 
-				console.log(this.state.nodes);
 				return this.state.nodes.map(function (nodeitem) {
 					return _react2.default.createElement(_NodeItem2.default, {
 						className: window.selected == nodeitem ? "selected" : "",
@@ -26881,7 +26905,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26896,6 +26920,12 @@
 
 	var _reactRouter = __webpack_require__(160);
 
+	var _axios = __webpack_require__(225);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _form = __webpack_require__(246);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26905,34 +26935,182 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Home = function (_Component) {
-	    _inherits(Home, _Component);
+		_inherits(Home, _Component);
 
-	    function Home(props) {
-	        _classCallCheck(this, Home);
+		function Home(props) {
+			_classCallCheck(this, Home);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
-	    }
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
 
-	    _createClass(Home, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                'This is Home',
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/project' },
-	                    ' Link'
-	                )
-	            );
-	        }
-	    }]);
+			_this.state = { projects: [] };
+			return _this;
+		}
 
-	    return Home;
+		_createClass(Home, [{
+			key: 'project_link',
+			value: function project_link(self) {
+				return self.state.projects.map(function (project) {
+					return _react2.default.createElement(
+						'li',
+						{ key: project["id"] },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{
+								to: '/project/' + project["id"]
+							},
+							project["name"]
+						)
+					);
+				});
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+
+				_axios2.default.get('http://153.126.215.94/api').then(function (response) {
+					var projects = response.data.Project.map(function (obj) {
+						return { id: obj["id"], name: obj["name"] };
+					});
+					if (projects.length != 0) {
+						_this2.setState({ projects: projects });
+					}
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_form.Form, null),
+					this.project_link(this),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/project' },
+						'Link'
+					)
+				);
+			}
+		}]);
+
+		return Home;
 	}(_react.Component);
 
 	exports.default = Home;
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Form = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(160);
+
+	var _axios = __webpack_require__(225);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Form = exports.Form = function (_Component) {
+		_inherits(Form, _Component);
+
+		function Form(props) {
+			_classCallCheck(this, Form);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Form).call(this, props));
+
+			_this.state = { name: "", theme: "" };
+			return _this;
+		}
+
+		_createClass(Form, [{
+			key: 'createProject',
+			value: function createProject() {
+				if (this.state["name"] == "" || this.state["theme"] == "") {
+					return { "message": "入力して下さい" };
+				}
+				_axios2.default.post('http://153.126.215.94/api', this.state).then(function (response) {
+					console.log(response);
+					window.location.href = './project/' + response.id;
+				}).catch(function (response) {
+					console.log(response);
+					alert(response.message);
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'span',
+							null,
+							'Project name '
+						),
+						_react2.default.createElement('input', {
+							className: 'name',
+							value: this.state.name,
+							onChange: function onChange(event) {
+								return _this2.setState({ name: event.target.value });
+							}
+						})
+					),
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'span',
+							null,
+							'Theme '
+						),
+						_react2.default.createElement('input', {
+							className: 'theme',
+							value: this.state.theme,
+							onChange: function onChange(event) {
+								return _this2.setState({ theme: event.target.value });
+							}
+						})
+					),
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.createProject.bind(this) },
+							'Click here!'
+						)
+					)
+				);
+			}
+		}]);
+
+		return Form;
+	}(_react.Component);
 
 /***/ }
 /******/ ]);
