@@ -1,5 +1,3 @@
-window.selected = "Takamichi";
-
 function mindGraph(el) {
 
     // Add and remove element on the graph object
