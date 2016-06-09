@@ -28,7 +28,10 @@ export class NodeList extends Component {
             key={nodeitem}
             nodeitem={nodeitem}
             selected_change={
-              () => {window.selected = nodeitem;}
+              () => {
+                window.selected = nodeitem;
+                this.forceUpdate()
+              }
             }
              />
           )
