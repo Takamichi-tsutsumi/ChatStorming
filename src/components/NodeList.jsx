@@ -15,8 +15,8 @@ export class NodeList extends Component {
     const nodes = this.state.nodes
     const updated_node = nodes;
     console.log(updated_node)
-    updated_node.splice(nodes.indexOf(this.state.selected),1)
-    this.setState({nodes: updated_node, selected: ""})
+    updated_node.splice(nodes.indexOf(window.selected),1)
+    this.setState({nodes: updated_node})
   }
 
   nodeItems() {
@@ -24,13 +24,15 @@ export class NodeList extends Component {
     return this.state.nodes.map((nodeitem) => {
           return (
             <NodeItem
-            className={ this.state.selected == nodeitem ? "selected" : "" }
+            className={ window.selected == nodeitem ? "selected" : "" }
             key={nodeitem}
             nodeitem={nodeitem}
-            selected_change={(nodeName) => {
-              this.setState({selected: nodeName});
-              window.selected = nodeName;
-            }}
+            selected_change={
+              () => {
+                window.selected = nodeitem;
+                this.forceUpdate()
+              }
+            }
              />
           )
     })
@@ -39,7 +41,7 @@ export class NodeList extends Component {
   constructor(props) {
       super(props)
 
-      this.state = { nodes: [], selected: "" };
+      this.state = { nodes: []};
       this.nodeItems = this.nodeItems.bind(this)
   }
 
@@ -47,7 +49,6 @@ export class NodeList extends Component {
   render() {
       return(
           <ul>
-            <button onClick={() => this.deleteSelected()} />
             {this.nodeItems()}
           </ul>
       )

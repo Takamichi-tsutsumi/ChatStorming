@@ -7,7 +7,6 @@ class NodeItem extends Component {
 		this.state = {
 			name: props.nodeitem
 		}
-
 	}
 
 	render() {

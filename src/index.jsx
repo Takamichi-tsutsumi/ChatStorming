@@ -8,6 +8,8 @@ import { Graph } from './components/Graph.jsx';
 class App extends Component {
     constructor(props) {
         super(props);
+
+        window.selected = "";
     }
 
     render() {
