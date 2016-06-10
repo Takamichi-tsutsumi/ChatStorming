@@ -74,6 +74,7 @@ export default class App extends Component {
               </div>
             { this.changeComponent() }
           </div>
+          </div>
         );
     }
 }
