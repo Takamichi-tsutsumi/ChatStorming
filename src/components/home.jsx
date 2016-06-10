@@ -5,6 +5,12 @@ import axios from 'axios';
 
 import { Form } from './form.jsx';
 
+function getDate(dateString) {
+    const dates = dateString.slice(4,-4);
+    const date_array = dates.split(' ');
+    return date_array[3] + " " + date_array[2] + " " + date_array[1]
+}
+
 export default class Home extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +23,9 @@ export default class Home extends Component {
         return self.state.projects.map((project) => {
             return (
                 <tr key={ project["id"] }>
-                <td>20160603 19:00</td>
+                <td>
+                { getDate(project["created_at"]) }
+                </td>
                 <td>チーム / {project["name"]}</td>
                 <td>
                 <Link to={`/project/${project["id"]}`}>
@@ -32,7 +40,7 @@ export default class Home extends Component {
     componentWillMount() {
         axios.get('http://153.126.215.94/api').then((response) => {
             const projects = response.data.Project.map((obj) => {
-                return {id: obj["id"], name: obj["name"]}
+                return {id: obj["id"], name: obj["name"], created_at: obj["created_at"] }
             })
             if (projects.length != 0) {
                 this.setState({ projects: projects })
