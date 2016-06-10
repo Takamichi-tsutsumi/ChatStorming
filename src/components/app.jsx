@@ -19,7 +19,6 @@ export default class App extends Component {
     componentDidMount() {
       const url = location.href.split("/");
       const num = Number(url[url.length-1].split("?")[0]);
-      this.setState({ id: num, done: true });
     }
 
     changeComponent() {
@@ -52,7 +51,7 @@ export default class App extends Component {
               this.setState({ done: !(this.state.done) });
               console.log(this.state)
             }}>
-                family作成
+                {this.state.done?"編集終了":"編集へ戻る"}
               </button>
             <div className="box1">
               <div className="main">
