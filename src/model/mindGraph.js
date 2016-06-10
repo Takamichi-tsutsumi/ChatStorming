@@ -34,25 +34,26 @@ function mindGraph(el) {
         }
     }
 
-    this.addChild = function(parent, child) {
+    this.addChild = function(parent, child, onLoad) {
         this.addNode(child);
         this.addLink(parent, child);
+        if (!onLoad) {
+            axios.post('http://153.126.215.94/api/node/create', {
+                data: JSON.stringify({ name: child, project_id: App.state.id, parent_name: parent })
+            }).then((response) => {
+                console.log(response);
+            }).catch((response) => {
+                console.error(response);
+                return;
+            })
 
-        axios.post('http://153.126.215.94/api/node/create', {
-            data: JSON.stringify({ name: child, project_id: App.state.id, parent_name: parent })
-        }).then((response) => {
-            console.log(response);
-        }).catch((response) => {
-            console.error(response);
-            return;
-        })
+            window.nodeList.deleteSelected();
+            window.suggestionList.deleteSelected();
 
-        window.nodeList.deleteSelected();
-        window.suggestionList.deleteSelected();
+            window.suggestionList.getSuggestions(child);
 
-        window.suggestionList.getSuggestions(child);
-
-        window.selected = "";
+            window.selected = "";
+        }
         window.nodes.push(child);
     }
 
