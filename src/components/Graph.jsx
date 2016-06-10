@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import mindGraph from '../model/mindGraph.js';
 
+import axios from 'axios';
+
 export class Graph extends Component {
     constructor(props) {
         super(props)
@@ -8,6 +10,7 @@ export class Graph extends Component {
 
     componentDidMount() {
         window.graph = new mindGraph('.map');
+
         graph.addNode('Test');
     }
 
