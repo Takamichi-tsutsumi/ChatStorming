@@ -510,3 +510,7 @@ li:after {
 .fusen:hover {
 	cursor: pointer;
 }
+
+.down {
+	height: 35px;
+}
