@@ -5,22 +5,54 @@ import { Router, Route, hashHistory, Link } from 'react-router';
 import { Graph } from './Graph.jsx';
 import { NodeList } from './NodeList.jsx';
 import { SuggestionList } from './SuggestionList.jsx';
+import { PostitList } from './PostitList.jsx';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { id: 0}
+        this.state = { id: 0, done: true }
         window.selected = "";
     }
 
     componentDidMount() {
-      this.setState({id: this.props.params.id})
+      const url = location.href.split("/");
+      const num = Number(url[url.length-1].split("?")[0]);
+      this.setState({ id: num, done: true });
+    }
+
+    changeComponent() {
+      if (this.state.done){
+        return(
+          <div>
+            <div className="subl">
+              <SuggestionList />
+            </div>
+            <div className="box2">
+              <div className="sub2">
+                <NodeList />
+              </div>
+            </div>
+          </div>
+        )
+      }else{
+        return(
+          <div>
+            <PostitList id={this.state.id} />
+          </div>
+        )
+      }
     }
 
     render() {
         return (
           <div className="app_container">
+            <button onClick={() => {
+              this.setState({ done: !(this.state.done) });
+              console.log(this.state)
+            }}>
+                family作成
+              </button>
             <div className="boxl">
               <div className="main">
                 <Graph />
@@ -46,14 +78,7 @@ export default class App extends Component {
                 <img src="images/img_07.png" alt="" />
               </div>
             </div>
-            <div className="subl">
-              <SuggestionList />
-            </div>
-            <div className="box2">
-              <div className="sub2">
-                <NodeList />
-              </div>
-            </div>
+            { this.changeComponent() }
           </div>
         );
     }
