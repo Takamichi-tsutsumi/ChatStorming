@@ -4,7 +4,7 @@
 
 /* デフォルト文字設定 */
 body{
-	font-family:メイリオ,sans-serif;
+	font-family:"ヒラギノ角ゴ Pro W3","メイリオ",sans-serif;
 	color: #50473d;
 	font-size:13px;
 	*font-size:small;
@@ -264,9 +264,9 @@ button:hover{
 
 /*サジェスト*/
 .sub1{
-    height:90px;
+    height:80px;
     overflow: hidden;
-    margin:15px 5% 10px 5%;
+    margin:20px 5% 20px 5%;
 }
 
 
@@ -338,14 +338,167 @@ li:after {
     z-index: -1; /* 重なり順を背面へ */
 }
 
-li.fusen {
-	cursor: pointer;
-}
-
 .selected{
     background-color: #ffb76a!important;
 }
 
-.style-svg {
-	height: 0;
+
+/*最後のページ*/
+
+.last_container{
+    background-image: url(images/note.jpg);
+    background-repeat: repeat;
+    z-index:-100;
+    position:fixed;
+}
+
+/*メニューバー*/
+
+.menubar{
+    height:60px;
+}
+
+.menubar img{
+    margin: 5px;
+    height:30px;
+}
+
+.menubar .icon{
+    float:right;
+}
+
+/*メイン*/
+
+.fusen2{
+    position:relative;
+    width:160px;
+    height:160px;
+    background-color: #b4ea4c;
+    margin:15px;
+    float:left;
+    text-align: center;
+    /*z-index: 0;*/
+}
+
+.fusen2 a{
+    display:block;
+    padding:70px 0;
+    text-decoration: none;
+}
+
+.fusen2:after {
+    width:158px;
+    height:158px;
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    background-color: #ffd1a0;
+    -webkit-box-shadow: 0 5px 5px #8a8a8a ;
+    -moz-box-shadow: 0 5px 5px #8a8a8a ;
+    box-shadow: 0 5px 5px #8a8a8a ;
+    -webkit-transform: rotate(4deg);
+    -moz-transform: rotate(4deg);
+    -o-transform: rotate(4deg);
+    -ms-transform: rotate(4deg);
+    transform: rotate(4deg);
+    z-index: -1;
+}
+
+.selected2{
+    display: none;
+    /*position:relative;
+    width:160px;
+    height:160px;
+    background-color: #b4ea4c;
+    margin:0 30px 0 40px;
+    float:left;*/
+}
+/*
+.fusen2_selected:after {
+    width:156px;
+    height:156px;
+    content: "";
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    -webkit-box-shadow: 0 5px 5px #8a8a8a ;
+    -moz-box-shadow: 0 5px 5px #8a8a8a ;
+    box-shadow: 0 5px 5px #8a8a8a ;
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    transform: rotate(2deg);
+    z-index: -1;
+}*/
+
+.fusen_family:after{
+    content:"";
+    display:block;
+    clear:both;
+}
+
+.fusen_member{
+    margin-left: 40px;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.fusen_member p{
+    font-size: 18px;
+    padding:20px 0 10px 0;
+}
+
+.notselected{
+    display:none;
+}
+
+.fusen3{
+    position:relative;
+    width:120px;
+    height:120px;
+    background-color: #ffd1a0;
+    margin:0 15px 15px 15px;
+    float:left;
+    -webkit-box-shadow: 0 3px 3px #8a8a8a ;
+    -moz-box-shadow: 0 3px 3px #8a8a8a ;
+    box-shadow: 0 3px 3px #8a8a8a ;
+}
+
+.fusen3 span{
+    display:table-cell;
+    height:120px;
+    width: 120px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.box3{
+    width:50%;
+    float:left;
+}
+
+.fusen_member{
+    width:80%;
+    background-color: #b4ea4c;
+}
+
+.fusen_member:after{
+    content:"";
+    display: block;
+    clear: both;
+}
+
+.fusen_family{
+    width:50%;
+    float:left;
+}
+
+.box4:after{
+    content: "";
+    display: block;
+    clear: both;
 }

@@ -62,16 +62,13 @@ export default class App extends Component {
       }
       const done = !(this.state.done)
       window.done = done;
-      this.setState({ ...done });
+      this.setState({ done: done });
 
     }
 
     render() {
         return (
           <div className="app_container">
-            <button onClick={() => {this.updateDone()}}>
-                {this.state.done?"編集へ戻る" : "編集終了"}
-              </button>
             <div className="box1">
               <div className="main">
                 <Graph />
@@ -79,14 +76,13 @@ export default class App extends Component {
                   <Link to="/">
                   <img src="/images/logo.png" alt="" />
                   </Link>
-                  <Link to="/">
-                    <img
-                      src="/images/img_01.png"
-                      className="icon"
-                      alt=""
-                    />
-                  </Link>
-                </div>
+                  <img
+                  onClick={() => { this.updateDone() }}
+                  src="/images/img_01.png"
+                  className="icon"
+                  alt=""
+                  />
+                  </div>
                 <div className="map">
                 </div>
               </div>

@@ -5,7 +5,7 @@ function mindGraph(el) {
     // Add and remove element on the graph object
     this.addNode = function(id) {
         nodes.push({'id': id});
-        window.nodes = [id];
+        window.nodes.push(id);
         update();
     }
 
@@ -54,7 +54,6 @@ function mindGraph(el) {
 
             window.selected = "";
         }
-        window.nodes.push(child);
     }
 
     var addChild = this.addChild.bind(this);
@@ -65,7 +64,7 @@ function mindGraph(el) {
         };
     }
 
-    var dindNodeIndex = function(id) {
+    var findNodeIndex = function(id) {
         for (var i=0; i < nodes.length; i++) {
             if (nodes[i].id === id) return i;
         }
@@ -125,26 +124,23 @@ function mindGraph(el) {
         nodeEnter.on('click', function(d) {
             if (window.done) {
                 // TODO: dのtext要素を取得する
-                var selected_nodes = window.selected_nodes;
-                console.log(d);
-                if ($.inArray(d, selected_nodes) != -1) {
-                    // selected_nodes にあるときそいつを削除
-                    window.selected_nodes.splice(selected_nodes.indexOf(d), 1)
+                var selected_node_list = window.selected_node_list;
+                if ($.inArray(d.id, selected_node_list) != -1) {
+                    // selected_node_list にあるときそいつを削除
+                    window.selected_node_list.splice(selected_node_list.indexOf(d.id), 1)
 
                 } else {
-                    window.selected_nodes.push(d);
-                }
-                window.selected_nodes.push(d.name);
 
+                    window.selected_node_list.push(d.id);
+                        }
             } else {
 
                 if (window.selected != '') addChild(d.id, window.selected);
-            }
 
+            }
         }).style('cursor', 'pointer');
 
         node.exit().remove();
-        window.node = node;
 
         force.on('tick', function() {
             link.attr('x1', function(d) { return d.source.x })
