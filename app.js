@@ -16,6 +16,10 @@ app.get('/', (req, res) => {
   res.render('index', {'env': app.get('env')});
 });
 
+app.get('/lp', (req, res) => {
+  res.render('lp', {'env': app.get('env')});
+});
+
 
 // socket.io
 sio(http);
