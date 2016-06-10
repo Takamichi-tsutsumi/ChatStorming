@@ -42,7 +42,6 @@ export default class Home extends Component {
 
     componentDidUpdate() {
         (function() {
-            console.log("hello")
             $(".history td a").mouseover(function(){
                 $("img", this).attr("src","images/img_02.png")
             }).mouseout(function(){

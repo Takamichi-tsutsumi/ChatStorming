@@ -20,8 +20,8 @@ export class Form extends Component {
 		axios.post('http://153.126.215.94/api/create',
 			{ data: JSON.stringify(this.state) })
 			.then((response) => {
+				console.log(response);
 				if (response.data.Result.result == 'success') {
-					console.log(response);
 					window.location.href = `/#/project/${response.data.Result.project_id}`;
 				}
 			}).catch((response) => {
