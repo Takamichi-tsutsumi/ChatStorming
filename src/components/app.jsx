@@ -28,16 +28,9 @@ export default class App extends Component {
     changeComponent() {
       if (!this.state.done){
         return(
-          <div>
             <div className="sub1">
               <SuggestionList />
             </div>
-            <div className="box2">
-              <div className="sub2">
-                <NodeList />
-              </div>
-            </div>
-          </div>
         )
       }else{
         return(
@@ -46,6 +39,18 @@ export default class App extends Component {
           </div>
         )
       }
+    }
+
+    componentbox2() {
+        if (!this.state.done) {
+            return (
+                <div className="box2">
+                <div className="sub2">
+                <NodeList />
+                </div>
+                </div>
+            )
+        }
     }
 
     updateDone() {
@@ -88,6 +93,7 @@ export default class App extends Component {
               </div>
             { this.changeComponent() }
           </div>
+          { this.componentbox2() }
         </div>
       );
     }
