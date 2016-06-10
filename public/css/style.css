@@ -405,6 +405,14 @@ li:after {
     z-index: -1;
 }
 
+.fusen2 span {
+	font-size: 20px;
+	font-weigt: bold;
+	margin-top: 12px;
+	display: inline-block;
+	padding-top:20px;
+}
+
 .selected2{
     display: none;
     /*position:relative;
