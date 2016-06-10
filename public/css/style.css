@@ -502,3 +502,11 @@ li:after {
     display: block;
     clear: both;
 }
+
+.style-svg {
+	height: 0;
+}
+
+.fusen:hover {
+	cursor: pointer;
+}
