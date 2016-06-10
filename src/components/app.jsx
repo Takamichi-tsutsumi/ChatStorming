@@ -32,12 +32,6 @@ export default class App extends Component {
               <SuggestionList />
             </div>
         )
-      }else{
-        return(
-          <div>
-            <PostitList id={this.state.id} />
-          </div>
-        )
       }
     }
 
@@ -47,6 +41,14 @@ export default class App extends Component {
                 <div className="box2">
                 <div className="sub2">
                 <NodeList />
+                </div>
+                </div>
+            )
+        } else {
+            return(
+                <div className="box2">
+                <div className="sub2">
+                <PostitList id={this.state.id} />
                 </div>
                 </div>
             )
