@@ -5,6 +5,7 @@ function mindGraph(el) {
     // Add and remove element on the graph object
     this.addNode = function(id) {
         nodes.push({'id': id});
+        window.nodes = [id];
         update();
     }
 
@@ -52,6 +53,7 @@ function mindGraph(el) {
         window.suggestionList.getSuggestions(child);
 
         window.selected = "";
+        window.nodes.push(child);
     }
 
     var addChild = this.addChild.bind(this);
@@ -120,7 +122,24 @@ function mindGraph(el) {
             .text(function(d) { return d.id });
 
         nodeEnter.on('click', function(d) {
-            if (window.selected != '') addChild(d.id, window.selected);
+            if (window.done) {
+                // TODO: dのtext要素を取得する
+                var selected_nodes = window.selected_nodes;
+                console.log(d);
+                if ($.inArray(d, selected_nodes) != -1) {
+                    // selected_nodes にあるときそいつを削除
+                    window.selected_nodes.splice(selected_nodes.indexOf(d), 1)
+
+                } else {
+                    window.selected_nodes.push(d);
+                }
+                window.selected_nodes.push(d.name);
+
+            } else {
+
+                if (window.selected != '') addChild(d.id, window.selected);
+            }
+
         }).style('cursor', 'pointer');
 
         node.exit().remove();
