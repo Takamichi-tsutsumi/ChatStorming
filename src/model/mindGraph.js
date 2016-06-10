@@ -5,6 +5,7 @@ function mindGraph(el) {
     // Add and remove element on the graph object
     this.addNode = function(id) {
         nodes.push({'id': id});
+        window.nodes = [id];
         update();
     }
 
@@ -33,25 +34,27 @@ function mindGraph(el) {
         }
     }
 
-    this.addChild = function(parent, child) {
+    this.addChild = function(parent, child, onLoad) {
         this.addNode(child);
         this.addLink(parent, child);
+        if (!onLoad) {
+            axios.post('http://153.126.215.94/api/node/create', {
+                data: JSON.stringify({ name: child, project_id: App.state.id, parent_name: parent })
+            }).then((response) => {
+                console.log(response);
+            }).catch((response) => {
+                console.error(response);
+                return;
+            })
 
-        axios.post('http://153.126.215.94/api/node/create', {
-            data: JSON.stringify({ name: child, project_id: App.state.id, parent_name: parent })
-        }).then((response) => {
-            console.log(response);
-        }).catch((response) => {
-            console.error(response);
-            return;
-        })
+            window.nodeList.deleteSelected();
+            window.suggestionList.deleteSelected();
 
-        window.nodeList.deleteSelected();
-        window.suggestionList.deleteSelected();
+            window.suggestionList.getSuggestions(child);
 
-        window.suggestionList.getSuggestions(child);
-
-        window.selected = "";
+            window.selected = "";
+        }
+        window.nodes.push(child);
     }
 
     var addChild = this.addChild.bind(this);
@@ -120,7 +123,24 @@ function mindGraph(el) {
             .text(function(d) { return d.id });
 
         nodeEnter.on('click', function(d) {
-            if (window.selected != '') addChild(d.id, window.selected);
+            if (window.done) {
+                // TODO: dのtext要素を取得する
+                var selected_nodes = window.selected_nodes;
+                console.log(d);
+                if ($.inArray(d, selected_nodes) != -1) {
+                    // selected_nodes にあるときそいつを削除
+                    window.selected_nodes.splice(selected_nodes.indexOf(d), 1)
+
+                } else {
+                    window.selected_nodes.push(d);
+                }
+                window.selected_nodes.push(d.name);
+
+            } else {
+
+                if (window.selected != '') addChild(d.id, window.selected);
+            }
+
         }).style('cursor', 'pointer');
 
         node.exit().remove();
