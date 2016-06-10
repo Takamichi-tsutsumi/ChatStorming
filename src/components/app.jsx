@@ -11,7 +11,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { id: 0, done: true }
+        this.state = { id: 0, done: false }
         window.App = this;
         window.selected = "";
     }
@@ -22,7 +22,7 @@ export default class App extends Component {
     }
 
     changeComponent() {
-      if (this.state.done){
+      if (!this.state.done){
         return(
           <div>
             <div className="sub1">
@@ -44,14 +44,27 @@ export default class App extends Component {
       }
     }
 
+    updateDone() {
+      if (!this.state.done){
+
+        SpeechRec.forceStopped = true;
+        SpeechRec.stop();
+
+      } else {
+
+        SpeechRec.forceStopped = false;
+        SpeechRec.start();
+
+      }
+
+      this.setState({ done: !(this.state.done) });
+    }
+
     render() {
         return (
           <div className="app_container">
-            <button onClick={() => {
-              this.setState({ done: !(this.state.done) });
-              console.log(this.state)
-            }}>
-                {this.state.done?"編集終了":"編集へ戻る"}
+            <button onClick={() => {this.updateDone()}}>
+                {this.state.done?"編集へ戻る" : "編集終了"}
               </button>
             <div className="box1">
               <div className="main">
@@ -73,7 +86,7 @@ export default class App extends Component {
               </div>
             { this.changeComponent() }
           </div>
-          </div>
-        );
+        </div>
+      );
     }
 }
