@@ -11,15 +11,6 @@ export default class Home extends Component {
 
         this.state = { projects: [] }
 
-        axios.get('http://153.126.215.94/api').then((response) => {
-            const projects = response.data.Project.map((obj) => {
-                return {id: obj["id"], name: obj["name"]}
-            })
-            if (projects.length != 0) {
-                this.setState({ projects: projects })
-            }
-        })
-
     }
 
     project_link(self) {
@@ -38,14 +29,26 @@ export default class Home extends Component {
         });
     }
 
-    componentDidMount() {
-        // (function() {
-        //     $(".history td a").mouseover(function(){
-        //         $("img", this).attr("src","images/img_03.png")
-        //     }).mouseout(function(){
-        //         $("img", this).attr("src","images/img_02.png")
-        //     });
-        // })();
+    componentWillMount() {
+        axios.get('http://153.126.215.94/api').then((response) => {
+            const projects = response.data.Project.map((obj) => {
+                return {id: obj["id"], name: obj["name"]}
+            })
+            if (projects.length != 0) {
+                this.setState({ projects: projects })
+            }
+        })
+    }
+
+    componentDidUpdate() {
+        (function() {
+            console.log("hello")
+            $(".history td a").mouseover(function(){
+                $("img", this).attr("src","images/img_02.png")
+            }).mouseout(function(){
+                $("img", this).attr("src","images/img_03.png")
+            });
+        })();
     }
 
     render() {
