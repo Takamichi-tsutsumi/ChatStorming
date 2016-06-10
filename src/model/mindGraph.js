@@ -136,6 +136,7 @@ function mindGraph(el) {
             } else {
 
                 if (window.selected != '') addChild(d.id, window.selected);
+                socket.emit("addChild", {data: { parent: d.id, child: window.selected}})
 
             }
         }).style('cursor', 'pointer');
