@@ -19,6 +19,7 @@ export default class App extends Component {
     componentDidMount() {
       const url = location.href.split("/");
       const num = Number(url[url.length-1].split("?")[0]);
+      this.setState({ id: num })
     }
 
     changeComponent() {
