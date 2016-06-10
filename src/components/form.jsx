@@ -30,7 +30,7 @@ export class Form extends Component {
 
   render() {
 		return (
-			<div>
+			<div id="newmap">
 				<table>
 					<tbody>
 						<tr>

@@ -236,7 +236,7 @@ button:hover{
 /*メイン*/
 
 .main{
-    background-image:url(images/note.jpg);
+    background-image:url(/images/note.jpg);
     background-repeat:repeat;
 }
 
@@ -338,6 +338,14 @@ li:after {
     z-index: -1; /* 重なり順を背面へ */
 }
 
+li.fusen {
+	cursor: pointer;
+}
+
 .selected{
     background-color: #ffb76a!important;
+}
+
+.style-svg {
+	height: 0;
 }

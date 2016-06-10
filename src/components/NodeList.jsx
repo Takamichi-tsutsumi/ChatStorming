@@ -21,7 +21,7 @@ export class NodeList extends Component {
           this.setState({
               nodes: []
           })
-      } else if ($.inArray(window.selected, this.state.node)){
+      } else if ($.inArray(window.selected, this.state.nodes) != -1){
           const updated_node = nodes;
           updated_node.splice(nodes.indexOf(window.selected),1)
           this.setState({
@@ -42,7 +42,7 @@ export class NodeList extends Component {
                 () => {
                   window.selected = nodeitem;
                   this.forceUpdate()
-              } 
+              }
             }
              />
         )
@@ -59,9 +59,10 @@ export class NodeList extends Component {
               contentType: 'application/json',
               success: function(response) {
                   const updated_nodes = this.state.nodes;
-                  Array.forEach(response.keywords, function(word) {
-                      if ($.inArray(word, updated_nodes) == -1) {
-                          updated_nodes.splice(0, 0, word);
+                  $.each(response.keywords, function() {
+                      console.log(this);
+                      if ($.inArray(this, updated_nodes) == -1) {
+                          updated_nodes.splice(0, 0, this);
                       }
                   })
                   this.setState({

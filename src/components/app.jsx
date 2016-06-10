@@ -21,33 +21,25 @@ export default class App extends Component {
     render() {
         return (
           <div className="app_container">
-            <div className="boxl">
+            <div className="box1">
               <div className="main">
                 <Graph />
                 <div className="menubar">
-                  <img src="images/logo.png" alt="" />
+                  <img src="/images/logo.png" alt="" />
                   <Link to="#">
                     <img
-                      src="image/img_02.png"
-                      className="icon"
-                      alt=""
-                    />
-                  </Link>
-                  <Link to="#">
-                    <img
-                      src="image/img_01.png"
+                      src="/images/img_01.png"
                       className="icon"
                       alt=""
                     />
                   </Link>
                 </div>
+                <div className="map">
+                </div>
               </div>
-              <div className="map">
-                <img src="images/img_07.png" alt="" />
-              </div>
-            </div>
-            <div className="subl">
+              <div className="sub1">
               <SuggestionList />
+              </div>
             </div>
             <div className="box2">
               <div className="sub2">

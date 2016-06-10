@@ -13,9 +13,8 @@ class NodeItem extends Component {
 		return (
 			<div
 			  onClick={() => {this.props.selected_change(this.state.name)}}
-			  className={this.props.className}
 			>
-			  <li><span>{ this.state.name }</span></li>
+			  <li className={"fusen " + this.props.className} ><span>{ this.state.name }</span></li>
 			</div>
 		)
 	}

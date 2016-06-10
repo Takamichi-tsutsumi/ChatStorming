@@ -62,12 +62,15 @@ function mindGraph(el) {
         h = 500;
 
     var vis = this.vis = d3.select(el).append('svg:svg')
-        .attr('width', w)
-        .attr('height', h);
+        .style({
+            'height': '100%',
+            'width': '100%'
+        });
+
 
     var force = d3.layout.force()
         .gravity(.01)
-        .distance(130)
+        .distance(100)
         .charge(-100)
         .size([w, h]);
 

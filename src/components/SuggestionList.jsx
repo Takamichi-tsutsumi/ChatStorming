@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import NodeItem from './NodeItem';
+import shuffle from '../model/util.js';
 
 export class SuggestionList extends Component {
 
@@ -17,15 +18,18 @@ export class SuggestionList extends Component {
   getSuggestions(word) {
 		axios.get(`http://52.196.226.197/word2vec/${word}`)
 				.then(function(response) {
-						const nodes = this.state.nodes;
+						const updated_nodes = this.state.nodes.slice(0, 8);
 						const suggested = response.data.ResultSet.words.map((obj) => {
 							return obj[0];
 						})
 						if (suggested.length != 0) {
+							const suggest_shuffled = shuffle(suggested).map(function(word) {
+								if ($.inArray(word, updated_nodes) == -1) {
+									return word;
+								}
+							}).clean().slice(0,4)
 
-							nodes.splice(0,0, suggested[Math.floor(Math.random () * 10)])
-
-							this.setState({ ...nodes })
+							this.setState({ nodes: suggest_shuffled.concat(updated_nodes) })
 						}
 				}.bind(this));
 	}
@@ -36,7 +40,7 @@ export class SuggestionList extends Component {
 			this.setState({
 				nodes: []
 			})
-		} else if ($.inArray(window.selected, this.state.nodes)) {
+		} else if ($.inArray(window.selected, this.state.nodes) != -1) {
 			const updated_node = nodes;
 			updated_node.splice(nodes.indexOf(window.selected),1)
 			this.setState({

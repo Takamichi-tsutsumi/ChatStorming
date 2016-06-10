@@ -7,13 +7,13 @@ export class Graph extends Component {
     }
 
     componentDidMount() {
-        window.graph = new mindGraph('.graph');
+        window.graph = new mindGraph('.map');
         graph.addNode('Test');
     }
 
     render() {
         return(
-            <div className="graph"></div>
+            <div></div>
         )
     }
 }
