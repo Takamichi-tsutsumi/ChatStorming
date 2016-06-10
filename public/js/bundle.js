@@ -25276,12 +25276,6 @@
 	          { className: 'sub1' },
 	          _react2.default.createElement(_SuggestionList.SuggestionList, null)
 	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(_PostitList.PostitList, { id: this.state.id })
-	        );
 	      }
 	    }
 	  }, {
@@ -25295,6 +25289,16 @@
 	            'div',
 	            { className: 'sub2' },
 	            _react2.default.createElement(_NodeList.NodeList, null)
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'box2' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'sub2' },
+	            _react2.default.createElement(_PostitList.PostitList, { id: this.state.id })
 	          )
 	        );
 	      }
@@ -27240,17 +27244,12 @@
 					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'right' },
-						this.postits(),
+						{ className: 'down' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'postit' },
 							this.postit()
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'down' },
+						),
 						_react2.default.createElement(
 							'button',
 							{ onClick: function onClick() {
@@ -27262,6 +27261,11 @@
 							this.state.button ? "グループ作成" : "作成中止"
 						),
 						this.send_btn()
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'right' },
+						this.postits()
 					)
 				);
 			}
@@ -27274,7 +27278,7 @@
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -27305,13 +27309,17 @@
 		}
 
 		_createClass(Postit, [{
-			key: 'render',
+			key: "render",
 			value: function render() {
 				console.log(this.props);
 				return _react2.default.createElement(
-					'div',
-					{ key: this.props.key },
-					this.props.familyName
+					"div",
+					{ className: "fusen2", key: this.props.key },
+					_react2.default.createElement(
+						"span",
+						null,
+						this.props.familyName
+					)
 				);
 			}
 		}]);
