@@ -21,11 +21,7 @@ export class NodeList extends Component {
 
   deleteSelected() {
       const nodes = this.state.nodes;
-      if (nodes.length == 1) {
-          this.setState({
-              nodes: []
-          })
-      } else if ($.inArray(window.selected, this.state.nodes) != -1){
+      if ($.inArray(window.selected, this.state.nodes) != -1){
           const updated_node = nodes;
           updated_node.splice(nodes.indexOf(window.selected),1)
           this.setState({
