@@ -25,8 +25,10 @@ export default class App extends Component {
               <div className="main">
                 <Graph />
                 <div className="menubar">
+                  <Link to="/">
                   <img src="/images/logo.png" alt="" />
-                  <Link to="#">
+                  </Link>
+                  <Link to="/">
                     <img
                       src="/images/img_01.png"
                       className="icon"
