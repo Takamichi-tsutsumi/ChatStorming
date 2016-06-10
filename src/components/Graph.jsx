@@ -10,7 +10,7 @@ export class Graph extends Component {
         this.state = {initialNodes: []}
 
         window.nodes = [];
-        window.selected_nodes = [];
+        window.selected_node_list = [];
     }
 
     componentWillMount() {

@@ -54,8 +54,15 @@ export class PostitList extends Component {
 		if (!(this.state.button)){
 			return(
 				<button
-				  onClick={ () => this.createFamily(window.selected_node_list, this.state.postit.name, this.props.id) }>
-				  send
+				onClick={ () => {
+					const selected_nodes = window.selected_node_list;
+					this.createFamily(selected_nodes, this.state.postit.name, this.props.id);
+					for (var i=0; i < selected_nodes.length; i++ ) {
+						window.graph.removeNode(selected_nodes[i])
+					}
+					window.selected_node_list = [];
+				}}>
+				send
 				</button>
 			)
 	  }
@@ -79,27 +86,26 @@ export class PostitList extends Component {
 	render() {
 		return(
 			<div>
-				<div className="right">
-				  {this.postits()}
-				  <div className="postit">
-					  {this.postit()}
-					</div>
-				</div>
-				<div className="down">
-	        <button onClick={() => {
-						window.selectd_node_list = window.selected_node_list;
-						this.setState(
-							{ button: !(this.state.button),
-								postit:
-								{open: !(this.state.postit.open), name: this.state.postit.name }
-							});
-					}}
-					>
-					  {(this.state.button)?"グループ作成":"作成中止"}
-					</button>
-					{this.send_btn()}
-				</div>
+			<div className="right">
+			{this.postits()}
+			<div className="postit">
+			{this.postit()}
 			</div>
+			</div>
+			<div className="down">
+			<button onClick={() => {
+				this.setState(
+					{ button: !(this.state.button),
+						postit:
+						{open: !(this.state.postit.open), name: this.state.postit.name }
+					});
+				}}
+				>
+				{(this.state.button)?"グループ作成":"作成中止"}
+				</button>
+				{this.send_btn()}
+				</div>
+				</div>
 		)
 	}
 }
