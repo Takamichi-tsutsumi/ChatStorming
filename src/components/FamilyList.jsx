@@ -13,6 +13,4 @@ export class FamilyList extends Component {
 			<div>This is FamilyList!</div>
 		)
 	}
-
-
 }

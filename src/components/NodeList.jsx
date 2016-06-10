@@ -12,7 +12,11 @@ export class NodeList extends Component {
 
       this.state = { nodes: []};
       this.nodeItems = this.nodeItems.bind(this)
-      Speech(this);
+  }
+
+  componentDidMount() {
+    Speech(this);
+    SpeechRec.forceStopped = false;
   }
 
   deleteSelected() {

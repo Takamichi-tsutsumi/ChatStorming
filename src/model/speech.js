@@ -23,7 +23,7 @@ const Speech = function(self) {
     });
 
     setInterval(function() {
-        if (SpeechRec._state == 'STOP') {
+        if (SpeechRec._state == 'STOP' && !SpeechRec.forceStopped) {
             console.log("stopped");
             SpeechRec.start();
         }
