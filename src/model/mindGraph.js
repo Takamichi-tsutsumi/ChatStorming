@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 function mindGraph(el) {
 
     // Add and remove element on the graph object
@@ -34,6 +36,15 @@ function mindGraph(el) {
     this.addChild = function(parent, child) {
         this.addNode(child);
         this.addLink(parent, child);
+
+        axios.post('http://153.126.215.94/api/node/create', {
+            data: JSON.stringify({ name: child, project_id: App.state.id, parent: parent })
+        }).then((response) => {
+            console.log(response);
+        }).catch((response) => {
+            console.error(response);
+            return;
+        })
 
         window.nodeList.deleteSelected();
         window.suggestionList.deleteSelected();
