@@ -9,7 +9,8 @@ import Landing from './components/landing.jsx';
 ReactDOM.render((
   <Router history={ hashHistory }>
 		<Route path="/" component={ Home }/>
-      <Route path="lp" component={ Landing }/>
-		  <Route path="project/:project_id" component={ App }/>
+    <Route path="lp" component={ Landing }/>
+		<Route path="project/:project_id" component={ App }/>
+    <Route path="project/:project_id/families" component={ FamilyList }/>
 	</Router>
 ),document.querySelector('.container'));

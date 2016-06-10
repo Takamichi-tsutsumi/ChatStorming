@@ -42,7 +42,7 @@ export class NodeList extends Component {
                 () => {
                   window.selected = nodeitem;
                   this.forceUpdate()
-              } 
+              }
             }
              />
         )

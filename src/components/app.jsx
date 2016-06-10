@@ -11,7 +11,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { id: 0, done: true }
+        this.state = { id: 0, done: false }
         window.selected = "";
     }
 
@@ -51,7 +51,7 @@ export default class App extends Component {
               this.setState({ done: !(this.state.done) });
               console.log(this.state)
             }}>
-                family作成
+                {this.state.done?"編集終了":"編集へ戻る"}
               </button>
             <div className="boxl">
               <div className="main">
