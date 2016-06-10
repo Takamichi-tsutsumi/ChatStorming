@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, Link } from 'react-router';
+import axios from 'axios';
 
 import { Graph } from './Graph.jsx';
 import { NodeList } from './NodeList.jsx';
@@ -9,11 +10,13 @@ import { PostitList } from './PostitList.jsx';
 
 export default class App extends Component {
     constructor(props) {
-        super(props);
 
-        this.state = { id: 0, done: false }
+        super(props);
+        this.state = { id: 0, done: false , initialNodes: []}
+
         window.App = this;
         window.selected = "";
+        window.done = false;
     }
 
     componentDidMount() {
@@ -57,8 +60,10 @@ export default class App extends Component {
         SpeechRec.start();
 
       }
+      const done = !(this.state.done)
+      window.done = done;
+      this.setState({ ...done });
 
-      this.setState({ done: !(this.state.done) });
     }
 
     render() {
