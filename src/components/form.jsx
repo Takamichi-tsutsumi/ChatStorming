@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import Router, { Link } from 'react-router';
 import axios from 'axios';
 
 
 export class Form extends Component {
+	mixins() {
+		return [Router.Navigation]
+	}
 	constructor(props) {
 		super(props)
 
@@ -14,18 +17,20 @@ export class Form extends Component {
 		if (this.state["name"] == "" || this.state["theme"] == "") {
 			return {"message": "入力して下さい"}
 		}
-		axios.post('http://153.126.215.94/api/create', JSON.stringify(this.state)).then((response) => {
-			console.log(response);
-			window.location.href = `./project/${response.id}`;
-		}).catch((response) => {
-		  console.log(response);
-			alert(response.message)
-		})
+		axios.post('http://153.126.215.94/api/create',
+			{ data: JSON.stringify(this.state) })
+			.then((response) => {
+				console.log(response);
+				window.location.href = `./project/${response.data.Result.project_id}`;
+			}).catch((response) => {
+				console.log(response);
+				alert(response.message)
+			})
 	}
 
   render() {
 		return (
-			<form>
+			<div>
 				<table>
 					<tbody>
 						<tr>
@@ -53,7 +58,7 @@ export class Form extends Component {
 					onClick={ this.createProject.bind(this) }>
 					新しいワークをする
 				</button>
-			</form>
+			</div>
 		)
 	}
 }
