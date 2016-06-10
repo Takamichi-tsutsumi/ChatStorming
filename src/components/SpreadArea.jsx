@@ -7,21 +7,22 @@ export class SpreadArea extends Component {
 
 	}
 
-  SpreadAreaChildren() {
+  SpreadAreaChildren(selected) {
 		return (
-			this.props.selected.children.map((child) => {
-				<div>{child}</div>
+			selected.nodes.map((node) => {
+				return (
+					<div className="fusen3">
+				    <span>{node}</span>
+				  </div>
+				)
 			})
 		)
 	}
 
 	render() {
 		return(
-			<div>
-			  <div>
-				  {this.props.selected.name}
-				</div>
-				{this.SpreadAreaChildren()}
+			<div className="fusen_member">
+        {this.SpreadAreaChildren(this.props.selected)}
 			</div>
 		)
 	}

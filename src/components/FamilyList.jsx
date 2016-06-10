@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import _ from 'lodash';
 
 import SubList from './SubList.jsx'
 import SpreadArea from './SpreadArea.jsx'
 
-export class FamilyList extends Component {
+class FamilyList extends Component {
   constructor(props) {
 		super(props);
 
@@ -19,51 +20,48 @@ export class FamilyList extends Component {
 	}
 
   getFamilies() {
-		// axios.get(`http://153.126.215.94/api/project/${this.props.id}/families`).then((response) => {
-		// 	window.all_families = response;
-		//   const families = response.map((family) => {
-		// 		return {name: family.name, children: family.nodes.split(",")}
-		// 	})
-		// 	this.setState({ selected: families[0],
-    //                   families: families.splice(0, 1)
-		// 							  })
-		// })
-    window.all_families = [{id:1,name:"taro",children:["node1","node2"]},
-                  {id:2,name:"takashi",children:["node5","node4"]},
-                  {id:23,name:"tnonoyama",children:["node6","node9"]}]
-    this.setState({ selected: window.all_families[0], families: window.all_families.splice(0,1) })
-	}
-
-  subList(families) {
-		return families.map((family) => {
-			return(
-				<SubList
-			    family={family}
-					slected={() => {
-						const selected = family;
-						const families = window.all_families.filter((value) => {
-							if (value.name != family.name){
-								return {name: value.name, children: value.nodes.split(",")}
-							}
-						})
-						this.setState({ selected: selected, families: families });
-					}}
-			  />);
-        console.log(this.state)
+		axios.get(`http://153.126.215.94/api/project/${this.props.id}/families`).then((response) => {
+			const families = response; // [{name: "name", nodes: []}, {}, ...]
+			this.setState({ selected: families[0],
+                      families: families
+									  })
 		})
-	}
+  }
+
+  subList() {
+    return(
+      this.state.families.map((family) => {
+        if (family != this.state.selected.name) {
+        <div class="fusen2">
+          <span onClick>{family.name}</span>
+        </div>
+        }
+      })
+    )
+  }
+
 
 
 	render() {
+    console.log(this)
 		return(
-			<div>
-        <div>
-          <SpreadArea selected={ this.state.selected } />
+			<div className="last_container">
+        <div className="menubar">
+          <img src="images/logo.png" alt/>
         </div>
-        <div>
-				  {this.subList(this.state.families)}
+        <div className="last_main">
+          <div className="box4">
+            <div className="box3">
+              <SpreadArea selected={this.state.selected}/>
+            </div>
+            <div className="fusen_family">
+              {this.subList()}
+            </div>
+          </div>
         </div>
-			</div>
+      </div>
 		)
 	}
 }
+
+export default FamilyList;
