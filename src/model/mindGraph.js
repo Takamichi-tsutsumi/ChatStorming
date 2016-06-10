@@ -38,7 +38,7 @@ function mindGraph(el) {
         this.addLink(parent, child);
 
         axios.post('http://153.126.215.94/api/node/create', {
-            data: JSON.stringify({ name: child, project_id: App.state.id, parent: parent })
+            data: JSON.stringify({ name: child, project_id: App.state.id, parent_name: parent })
         }).then((response) => {
             console.log(response);
         }).catch((response) => {
