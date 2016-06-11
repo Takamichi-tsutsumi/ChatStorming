@@ -26,7 +26,7 @@ export default class Home extends Component {
                 <td>
                 { getDate(project["created_at"]) }
                 </td>
-                <td>チーム / {project["name"]}</td>
+                <td>{project["name"]}</td>
                 <td>
                 <Link to={`/project/${project["id"]}`}>
                 <img src="/images/img_03.png" alt="" />
