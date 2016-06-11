@@ -129,6 +129,7 @@ function mindGraph(el) {
                 if ($.inArray(d.id, selected_node_list) != -1) {
                     // selected_node_list にあるときそいつを削除
                     window.selected_node_list.splice(selected_node_list.indexOf(d.id), 1)
+                    d3.select('#' + d.id).classed('selected', false);
 
                 } else {
 
