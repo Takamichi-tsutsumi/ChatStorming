@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 export class SpreadArea extends Component {
 	constructor(props) {
 		super(props);
-
+		this.state = {
+			node: this.props.node
+		}
 	}
 
   SpreadAreaChildren(selected) {
@@ -22,6 +24,7 @@ export class SpreadArea extends Component {
 	render() {
 		return(
 			<div className="fusen_member">
+
         {this.SpreadAreaChildren(this.props.selected)}
 			</div>
 		)

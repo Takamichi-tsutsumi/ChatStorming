@@ -3,21 +3,28 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import _ from 'lodash';
 
-import SubList from './SubList.jsx'
-import SpreadArea from './SpreadArea.jsx'
+export default class FamilyList extends Component {
+    constructor(props) {
+        super(props);
+
 
 class FamilyList extends Component {
   constructor(props) {
 		super(props);
 
-		this.state = { slected: {name: "", children: []},
-                   families: []
-								 }
-	}
 
-  componentDidMount() {
-		this.getFamilies()
-	}
+    getFamilies() {
+        axios.get(`http://153.126.215.94/api/project/${window.id}/families`).then((response) => {
+            console.log(response.data.Families)
+            const families = response.data.Families.map((family) => {
+                return {name: family.name, children: family.nodes.split(",")}
+            })
+            this.setState({ selected: families[0],
+                families: families
+            })
+        })
+    }
+
 
   getFamilies() {
 		axios.get(`http://153.126.215.94/api/project/${this.props.id}/families`).then((response) => {
@@ -39,7 +46,6 @@ class FamilyList extends Component {
       })
     )
   }
-
 
 
 	render() {
