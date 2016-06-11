@@ -31,6 +31,10 @@ export default class FamilyList extends Component {
         this.getFamilies();
     }
 
+    componentWillUpdate() {
+
+    }
+
     onSelectChange(familly) {
         this.setState({
             selected: family
@@ -46,7 +50,7 @@ export default class FamilyList extends Component {
                         className="fusen2"
                         key={ family.name }
                         >
-                        <span
+                        <span id={family.name} onClick={function() {this.setState({selected: family})}.bind(this)}
                         >
                         { family.name }
                         </span>
@@ -68,6 +72,18 @@ export default class FamilyList extends Component {
                 )
             })
         )
+    }
+
+    nextFusen() {
+        var nextIndex = this.state.families.indexOf(this.state.selected);
+        if (nextIndex == this.state.families.length) {
+            nextIndex = 0;
+        } else {
+            nextIndex = nextIndex + 1;
+        }
+
+        return this.state.families[nextIndex];
+
     }
 
     render() {

@@ -12,9 +12,22 @@ export class NodeList extends Component {
 
       this.state = { nodes: []};
       this.nodeItems = this.nodeItems.bind(this)
+      window.wordCount = 0;
   }
 
   componentDidMount() {
+
+    //   const words = [
+        //   "コミュニケーション","ミーティング","アイディア","活性化","グループワーク","忙しさ","個人差","好み","ブレスト","デザイン思考","スケジュール","リーダー","モチベーション","高める","ほめる","評価"
+    //   ]
+
+    //   setInterval(function() {
+    //       var newNodes = this.state.nodes
+    //       newNodes.push(words[window.wordCount])
+    //       window.wordCount++;
+    //       this.setState({nodes: newNodes})
+    //   }.bind(this), 3000)
+
     Speech(this);
     SpeechRec.forceStopped = false;
   }
