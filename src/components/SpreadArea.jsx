@@ -4,24 +4,24 @@ import React, { Component } from 'react';
 export class SpreadArea extends Component {
 	constructor(props) {
 		super(props);
-
+		this.state = {
+			node: this.props.node
+		}
 	}
 
-  SpreadAreaChildren() {
+	SpreadAreaChildren() {
 		return (
-			this.props.selected.children.map((child) => {
-				<div>{child}</div>
+			this.state.node.children.map((child) => {
+				<div key={child}>{child}</div>
 			})
 		)
 	}
 
 	render() {
 		return(
-			<div>
-			  <div>
-				  {this.props.selected.name}
-				</div>
-				{this.SpreadAreaChildren()}
+			<div className="fusen_member">
+			<p>{this.state.name}</p>
+			{this.SpreadAreaChildren()}
 			</div>
 		)
 	}

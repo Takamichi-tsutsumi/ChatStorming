@@ -3,9 +3,6 @@
  */
 
 var socket = io();
-socket.on("news", function(msg) { console.log(msg) });
-
-socket.on('chat message', function(msg) {
-  console.log(msg);
+socket.on("addChild", function(msg) {
+    graph.addChild(msg.parent, msg.child);
 });
-
