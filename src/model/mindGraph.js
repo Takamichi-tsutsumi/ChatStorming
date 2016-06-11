@@ -107,7 +107,9 @@ function mindGraph(el) {
 
         var nodeEnter = node.enter().append('g')
             .attr('class', 'node')
-            .attr('id', 3)
+            .attr('id', function(d) {
+                return d.id
+            })
             .call(force.drag);
 
         nodeEnter.append('circle')
@@ -123,7 +125,6 @@ function mindGraph(el) {
 
         nodeEnter.on('click', function(d) {
             if (window.done) {
-                // TODO: dのtext要素を取得する
                 var selected_node_list = window.selected_node_list;
                 if ($.inArray(d.id, selected_node_list) != -1) {
                     // selected_node_list にあるときそいつを削除
@@ -132,6 +133,7 @@ function mindGraph(el) {
                 } else {
 
                     window.selected_node_list.push(d.id);
+                    d3.select('#' + d.id).classed('selected', true);
                         }
             } else {
 
