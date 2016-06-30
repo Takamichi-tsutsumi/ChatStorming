@@ -21,13 +21,13 @@ class PostForm extends Component {
         return (
             <div>
             <input
-            className=""
+            className="post-input"
             type="text" value={ this.state.word }
             onChange={
                 (event) => { this.setState({ word: event.target.value }) }
             }
             />
-            <button className="post-form" onClick={ this.handleNewWord.bind(this) }>New Word</button>
+            <button className="post-form-button" onClick={ this.handleNewWord.bind(this) }>New Word</button>
             </div>
 
         )
