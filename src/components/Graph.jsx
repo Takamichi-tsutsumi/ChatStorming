@@ -52,7 +52,7 @@ export class Graph extends Component {
 
         }.bind(this);
 
-        graph.addNode(origin);
+        graph.addNode(origin, true, "skyblue");
         addChildNode(origin);
 
     }
