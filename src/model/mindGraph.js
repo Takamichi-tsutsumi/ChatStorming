@@ -3,8 +3,13 @@ import axios from 'axios';
 function mindGraph(el) {
 
     // Add and remove element on the graph object
-    this.addNode = function(id) {
-        nodes.push({'id': id});
+    this.addNode = function(id, origin=false, color="#ffb76a") {
+        var node = { 'id': id , 'color': color, 'fixed': origin };
+        if (node.fixed) {
+            node.y = Number(d3.select('svg').style('height').slice(0,3)) / 2;
+            node.x = Number(d3.select('svg').style('width').slice(0,3)) / 2;
+        }
+        nodes.push(node);
         window.nodes.push(id);
         update();
     }
@@ -114,7 +119,7 @@ function mindGraph(el) {
 
         nodeEnter.append('circle')
             .attr('class', 'circle')
-            .attr('fill', '#ffb76a')
+            .attr('fill', function(d) { return d.color })
             .attr('r', '28px');
 
         nodeEnter.append('text')
