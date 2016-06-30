@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { Postit } from './Postit.jsx';
-
 export class PostitList extends Component {
 	constructor(props) {
 		super(props);
@@ -65,48 +64,42 @@ export class PostitList extends Component {
 				send
 				</button>
 			)
-	  }
+		}
 	}
-	//
-	// transitionToFamily() {
-  //   window.open("./faimiles")
-  // }
 
-  postits() {
-	  return this.state.families.map((family) => {
-		  return(
-			  <Postit
-			  key={family}
-			  familyName={family}
-			  />
-		  )
-	  })
-  }
+	postits() {
+		return this.state.families.map((family) => {
+			return(
+				<Postit
+				key={family}
+				familyName={family}
+				/>
+			)
+		})
+	}
+	render() {
+		return(
+			<div>
+				<div className="down">
+				<div className="postit">
+				{this.postit()}
+				</div>
 
-  render() {
-	  return(
-		  <div>
-		  <div className="down">
-		  <div className="postit">
-		  {this.postit()}
-		  </div>
-
-		  <button onClick={() => {
-			  this.setState(
-				  { button: !(this.state.button),
-					  postit:
-					  {open: !(this.state.postit.open), name: this.state.postit.name }
-				  });
-			  }}
-			  >
-			  {(this.state.button)?"グループ作成":"作成中止"}
-			  </button>
-			  {this.send_btn()}
-			  </div>
-			  <div className="right">
-			  {this.postits()}
-			  </div>
-			  </div>
-		  )
-	  }
-  }
+				<button onClick={() => {
+					this.setState(
+						{ button: !(this.state.button),
+							postit:
+							{open: !(this.state.postit.open), name: this.state.postit.name }
+						});
+					}}>
+				{(this.state.button) ? "グループ作成" : "作成中止"}
+				</button>
+				{ this.send_btn() }
+				</div>
+				<div className="right">
+				{ this.postits() }
+				</div>
+			</div>
+		)
+	}
+}
