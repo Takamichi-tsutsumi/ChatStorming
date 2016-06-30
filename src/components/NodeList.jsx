@@ -8,6 +8,7 @@ import _ from 'lodash';
 class ColorSelector extends Component {
     constructor(props) {
         super(props)
+        window.color = {color: "#ffb76a", dark: false}
         this.state = {
             selectedColor: {color: "#ffb76a", dark: false},
             colors: [
@@ -22,8 +23,9 @@ class ColorSelector extends Component {
 
     onColorChange(event) {
         const color = event.target.value
-        this.setState({ selectedColor: _.find(this.state.colors, (c) => { return c.color === color }) })
-        window.color = color;
+        const selected = _.find(this.state.colors, (c) => { return c.color === color })
+        this.setState({ selectedColor: selected})
+        window.color = selected;
     }
 
     render() {

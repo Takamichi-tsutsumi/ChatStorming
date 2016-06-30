@@ -3,8 +3,8 @@ import axios from 'axios';
 function mindGraph(el) {
 
     // Add and remove element on the graph object
-    this.addNode = function(id, origin=false, color="#ffb76a") {
-        var node = { 'id': id , 'color': color, 'fixed': origin };
+    this.addNode = function(id, origin=false, color="#ffb76a", dark=false) {
+        var node = { 'id': id , 'color': color, 'fixed': origin, 'dark': dark };
         if (node.fixed) {
             node.y = Number(d3.select('svg').style('height').slice(0, -2)) / 2;
             node.x = Number(d3.select('svg').style('width').slice(0, -2)) / 2;
@@ -40,7 +40,7 @@ function mindGraph(el) {
     }
 
     this.addChild = function(parent, child, onLoad) {
-        this.addNode(child, false, window.color);
+        this.addNode(child, false, window.color.color, window.color.dark);
         this.addLink(parent, child);
         if (!onLoad) {
             axios.post('http://153.126.215.94/api/node/create', {
@@ -126,6 +126,7 @@ function mindGraph(el) {
             .attr('class', 'nodetext')
             .attr('dx', -20)
             .attr('dy', '.35em')
+            .attr('fill', function(d) {return d.dark ? 'white': 'black'})
             .text(function(d) { return d.id });
 
         nodeEnter.on('click', function(d) {
