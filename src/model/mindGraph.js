@@ -6,8 +6,8 @@ function mindGraph(el) {
     this.addNode = function(id, origin=false, color="#ffb76a") {
         var node = { 'id': id , 'color': color, 'fixed': origin };
         if (node.fixed) {
-            node.y = Number(d3.select('svg').style('height').slice(0,3)) / 2;
-            node.x = Number(d3.select('svg').style('width').slice(0,3)) / 2;
+            node.y = Number(d3.select('svg').style('height').slice(0, -2)) / 2;
+            node.x = Number(d3.select('svg').style('width').slice(0, -2)) / 2;
         }
         nodes.push(node);
         window.nodes.push(id);
