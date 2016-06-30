@@ -40,7 +40,7 @@ function mindGraph(el) {
     }
 
     this.addChild = function(parent, child, onLoad) {
-        this.addNode(child);
+        this.addNode(child, false, window.color);
         this.addLink(parent, child);
         if (!onLoad) {
             axios.post('http://153.126.215.94/api/node/create', {
