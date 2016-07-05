@@ -67,7 +67,7 @@ class PostForm extends Component {
     render() {
         return (
             <div>
-            <input
+            <textarea
             className="post-input"
             type="text" value={ this.state.word }
             onChange={
@@ -129,6 +129,7 @@ export class NodeList extends Component {
     }
 
     addWords(text) {
+        console.log(text);
         if (text != "") {
             $.ajax({
                 type: 'post',
@@ -137,6 +138,7 @@ export class NodeList extends Component {
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function(response) {
+                    console.log(response)
                     const updated_nodes = this.state.nodes;
                     $.each(response.keywords, function() {
                         console.log(this);
@@ -149,6 +151,7 @@ export class NodeList extends Component {
                     })
                 }.bind(this),
                 error: function(response) {
+                console.log(response)
                     console.log(response);
                 }
             });
@@ -166,7 +169,8 @@ export class NodeList extends Component {
     render() {
         return(
             <div>
-                <PostForm handleNewWord={ this.addNewWords.bind(this) } />
+                <PostForm handleNewWord={ this.addWords.bind(this) } />
+                {/*<PostForm handleNewWord={ this.addNewWord.bind(this) } />*/}
                 <ColorSelector />
                 <ul>{ this.nodeItems() }</ul>
             </div>
