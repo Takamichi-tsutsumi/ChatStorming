@@ -39,12 +39,18 @@ function mindGraph(el) {
         }
     }
 
-    this.addChild = function(parent, child, onLoad) {
-        this.addNode(child, false, window.color.color, window.color.dark);
+    this.addChild = function(parent, child, onLoad, color="") {
+        var color = color == "" ? window.color.color : color;
+        this.addNode(child, false, color, window.color.dark);
         this.addLink(parent, child);
         if (!onLoad) {
             axios.post('http://153.126.215.94/api/node/create', {
-                data: JSON.stringify({ name: child, project_id: App.state.id, parent_name: parent })
+                data: JSON.stringify({
+                    name: child,
+                    project_id: App.state.id,
+                    parent_name: parent,
+                    color: color
+                 })
             }).then((response) => {
                 console.log(response);
             }).catch((response) => {

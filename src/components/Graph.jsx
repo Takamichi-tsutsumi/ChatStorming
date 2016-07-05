@@ -45,9 +45,9 @@ export class Graph extends Component {
             });
 
             for (var i=0; i < childrenNodes.length; i++) {
-                var child = childrenNodes[i].name;
-                graph.addChild(parent, child, true);
-                addChildNode(child);
+                var child = childrenNodes[i];
+                graph.addChild(parent, child.name, true, child.color || "#ffb76a");
+                addChildNode(child.name);
             }
 
         }.bind(this);
