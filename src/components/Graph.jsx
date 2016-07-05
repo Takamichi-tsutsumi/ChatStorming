@@ -46,7 +46,7 @@ export class Graph extends Component {
 
             for (var i=0; i < childrenNodes.length; i++) {
                 var child = childrenNodes[i].name;
-                graph.addChild(parent, child, true);
+                graph.addChild(parent, child, true, child.color);
                 addChildNode(child);
             }
 

@@ -166,7 +166,7 @@ export class NodeList extends Component {
     render() {
         return(
             <div>
-                <PostForm handleNewWord={ this.addNewWord.bind(this) } />
+                <PostForm handleNewWord={ this.addNewWords.bind(this) } />
                 <ColorSelector />
                 <ul>{ this.nodeItems() }</ul>
             </div>
